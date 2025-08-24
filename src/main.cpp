@@ -6,7 +6,7 @@
 /*    Description:  Team 986B bot for 2025-2026                               */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
-//hello
+
 #include "vex.h"
 
 using namespace vex;

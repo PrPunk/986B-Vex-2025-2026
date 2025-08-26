@@ -1,6 +1,8 @@
 #include "vex.h"
 #include <brain-display.h>
 #include <array>
+#include <build-settings.h>
+#include "images.cpp"
 
 class BrainDisplay {
     public:
@@ -48,6 +50,7 @@ class BrainDisplay {
                 return;
             }
             drawButton(newButton);
+            pages[pageId]->buttons[buttonId] = new Button(newButton);
 
         }
 
@@ -59,6 +62,34 @@ class BrainDisplay {
                 if (x >= questioningButton->x && x <= (questioningButton->x + questioningButton->width) && y >= questioningButton->y && y <= (questioningButton->y + questioningButton->height)) {
                     questioningButton->callback(questioningButton->param);
                 }
+            }
+        }
+
+        void switchPage (unsigned int pageId) {
+            if (pageId < 5) {
+                Brain.Screen.clearScreen();
+                currentPage = pageId;
+                #ifdef INCLUDE_IMAGES
+                if (pages[pageId]->hasImage) {
+                    drawLogo();
+                }
+                #endif
+                for (int i = 0; i < 10; i++) {
+                    drawButton(*pages[pageId]->buttons[i]);
+                }
+            } else {
+                //error: pageId is out of range.
+            }
+        }
+
+        void addImage(unsigned int pageId) {
+            if (pageId < 5) {
+                pages[pageId]->hasImage = true;
+                if (currentPage == pageId) {
+                    switchPage(pageId);
+                }
+            } else {
+                //error: pageId is out of range.
             }
         }
 

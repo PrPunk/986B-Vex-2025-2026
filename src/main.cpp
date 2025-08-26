@@ -8,7 +8,6 @@
 /*----------------------------------------------------------------------------*/
 
 #include "vex.h"
-#include <brain-display.h>
 #include "brain-display.cpp"
 using namespace vex;
 BrainDisplay brainDisplay; 
@@ -90,7 +89,7 @@ void drawOnScreen() {
 //
 
 void screenCallback() {
-  brainDisplay.screenPressed()
+  brainDisplay.screenPressed();
 }
 
 int main() {

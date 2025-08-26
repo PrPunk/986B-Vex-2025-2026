@@ -8,9 +8,10 @@
 /*----------------------------------------------------------------------------*/
 
 #include "vex.h"
-
+#include <brain-display.h>
+#include "brain-display.cpp"
 using namespace vex;
-
+BrainDisplay brainDisplay; 
 
 // A global instance of competition
 competition Competition;
@@ -77,11 +78,26 @@ void usercontrol(void) {
   }
 }
 
+void drawOnScreen() {
+  //Place code here
+
+
+
+}
+
 //
 // Main will set up the competition functions and callbacks.
 //
+
+void screenCallback() {
+  brainDisplay.screenPressed()
+}
+
 int main() {
   // Set up callbacks for autonomous and driver control periods.
+  Brain.Screen.pressed(screenCallback);
+  drawOnScreen();
+
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
 

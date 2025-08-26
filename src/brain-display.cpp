@@ -5,33 +5,65 @@
 class BrainDisplay {
     public:
         Page *pages[5];
+        int currentPage = 0;
 
-        std::array<unsigned int, 5> availablePages () {
-            std::array<unsigned int, 5> pagesAvail;
+        std::array<unsigned int, 10> usedButtons (unsigned int pageId) {
+            std::array<unsigned int, 10> buttonsUsed;
             unsigned int usedPartsAvail = 0;
-            for (int i = 0; i < 5; i++) {
-                if (pages[i] != NULL) {
-                    pagesAvail[usedPartsAvail] = i;
-                    usedPartsAvail ++;
+            for (int i = 0; i < 10; i++) {
+                if (pages[pageId]->buttons[i]->x != NULL) {
+                    buttonsUsed[usedPartsAvail] = i;
+                    usedPartsAvail++;
                 }
             }
-            return pagesAvail;
+            return buttonsUsed;
         }
 
-        void createPage(unsigned int pageId) {
-            std::array<unsigned int, 5> reservedPages = availablePages();
+        void drawButton(Button newButton) {
+            if (isHexColor(newButton.color)) {
+                Brain.Screen.setFillColor(newButton.color);
+                Brain.Screen.drawRectangle(newButton.x, newButton.y, newButton.width, newButton.height);
+            }
+            if (newButton.text) {
+                unsigned int midX = newButton.x + (newButton.width/2) - (strlen(newButton.text)*5);
+                unsigned int midY = newButton.x + (newButton.height/2) - 8;
+                Brain.Screen.setPenColor(white);
+                Brain.Screen.printAt(midX, midY, newButton.text);
+            }
+        }
+        void createButton(unsigned int pageId, unsigned int buttonId, Button newButton) {
             if (!(pageId < 5 && pageId >= 0 && pageId != NULL)) {
                 //error: pageId is not within valid range
                 return;
             }
-            for (int i = 0; i < 5; i++) {
-                if (reservedPages[i] == pageId) {
-                    //error: pageId is in use
+            std::array<unsigned int, 10> reservedButtons = usedButtons(pageId);
+            for (int i = 0; i < 10; i++) {
+                if (reservedButtons[i] == buttonId) {
+                    //error: buttonId is in use
                     return;
+                }
+            }
+            if (newButton.x == NULL || newButton.y == NULL || newButton.width == NULL || newButton.height == NULL || newButton.callback == NULL) {
+                //error: button is incomplete. Missing required values.
+                return;
+            }
+            drawButton(newButton);
+
+        }
+
+        void screenPressed (void) {
+            int x = Brain.Screen.xPosition();
+            int y = Brain.Screen.yPosition();
+            for (int i = 0; i < 10; i++) {
+                Button *questioningButton = pages[currentPage]->buttons[i];
+                if (x >= questioningButton->x && x <= (questioningButton->x + questioningButton->width) && y >= questioningButton->y && y <= (questioningButton->y + questioningButton->height)) {
+                    questioningButton->callback(questioningButton->param);
                 }
             }
         }
 
     private:
-        ;
+        bool isHexColor(int value) {
+            return value >= 0x000000 && value <= 0xFFFFFF;
+        }
 };

@@ -54,12 +54,12 @@ void usercontrol(void) {
   while (1) {
 
 
-    L1.spin(fwd, (CT1.Axis3.value()/1.270), pct);
-    L2.spin(fwd, (CT1.Axis3.value()/1.270), pct);
-    L3.spin(fwd, (CT1.Axis3.value()/1.270), pct);
-    R1.spin(fwd, (CT1.Axis2.value()/1.270), pct);
-    R2.spin(fwd, (CT1.Axis2.value()/1.270), pct);
-    R3.spin(fwd, (CT1.Axis2.value()/1.270), pct);
+    L1.spin(fwd, (CT1.Axis2.value()/1.270), pct);
+    L2.spin(fwd, (CT1.Axis2.value()/1.270), pct);
+    L3.spin(fwd, (CT1.Axis2.value()/1.270), pct);
+    R1.spin(fwd, (CT1.Axis3.value()/1.270), pct);
+    R2.spin(fwd, (CT1.Axis3.value()/1.270), pct);
+    R3.spin(fwd, (CT1.Axis3.value()/1.270), pct);
 
     
     // This is the main execution loop for the user control program.

@@ -52,6 +52,16 @@ void autonomous(void) {
 void usercontrol(void) {
   // User control code here, inside the loop
   while (1) {
+
+
+    L1.spin(fwd, (CT1.Axis3.value()/1.270), pct);
+    L2.spin(fwd, (CT1.Axis3.value()/1.270), pct);
+    L3.spin(fwd, (CT1.Axis3.value()/1.270), pct);
+    R1.spin(fwd, (CT1.Axis1.value()/1.270), pct);
+    R2.spin(fwd, (CT1.Axis1.value()/1.270), pct);
+    R3.spin(fwd, (CT1.Axis1.value()/1.270), pct);
+
+    
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
     // values based on feedback from the joysticks.

@@ -78,11 +78,9 @@ class BrainDisplay {
             if (pageId < 5) {
                 Brain.Screen.clearScreen();
                 currentPage = pageId;
-                #ifdef INCLUDE_IMAGES
                 if (pages[pageId]->hasImage) {
                     drawLogo();
                 }
-                #endif
                 for (int i = 0; i < 10; i++) {
                     drawButton(*pages[pageId]->buttons[i]);
                 }

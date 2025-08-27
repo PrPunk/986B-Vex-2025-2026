@@ -1,3 +1,12 @@
+/*----------------------------------------------------------------------------*/
+/*                                                                            */
+/*    Module:       brain-display.cpp                                         */
+/*    Author:       Josiah Schatz                                             */
+/*    Created:      Sat 23 Aug 2025                                           */
+/*    Description:  Team 986B bot for 2025-2026                               */
+/*                                                                            */
+/*----------------------------------------------------------------------------*/
+
 #include "vex.h"
 #include <brain-display.h>
 #include <array>

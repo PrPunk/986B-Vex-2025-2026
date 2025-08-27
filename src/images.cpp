@@ -10,7 +10,6 @@
 #include "vex.h"
 using namespace vex;
 
-#include "build-settings.h"
 
 void drawLogo() {
     // static const char* imageColors[] = {

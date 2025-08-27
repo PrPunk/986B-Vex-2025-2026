@@ -10,7 +10,6 @@
 #include "vex.h"
 #include <brain-display.h>
 #include <array>
-#include <build-settings.h>
 #include "images.cpp"
 
 class BrainDisplay {

@@ -18,30 +18,8 @@ class BrainDisplay {
         Page *pages[5];
         int currentPage = 0;
 
-        std::array<unsigned int, 10> usedButtons (unsigned int pageId) {
-            std::array<unsigned int, 10> buttonsUsed;
-            unsigned int usedPartsAvail = 0;
-            for (int i = 0; i < 10; i++) {
-                if (pages[pageId]->buttons[i]->x != NULL) {
-                    buttonsUsed[usedPartsAvail] = i;
-                    usedPartsAvail++;
-                }
-            }
-            return buttonsUsed;
-        }
 
-        void drawButton(Button newButton) {
-            if (isHexColor(newButton.color)) {
-                Brain.Screen.setFillColor(newButton.color);
-                Brain.Screen.drawRectangle(newButton.x, newButton.y, newButton.width, newButton.height);
-            }
-            if (newButton.text) {
-                unsigned int midX = newButton.x + (newButton.width/2) - (strlen(newButton.text)*5);
-                unsigned int midY = newButton.x + (newButton.height/2) - 8;
-                Brain.Screen.setPenColor(white);
-                Brain.Screen.printAt(midX, midY, newButton.text);
-            }
-        }
+        
         void createButton(unsigned int pageId, unsigned int buttonId, Button newButton) {
             if (!(pageId < 5 && pageId >= 0 && pageId != NULL)) {
                 //error: pageId is not within valid range
@@ -103,5 +81,28 @@ class BrainDisplay {
     private:
         bool isHexColor(int value) {
             return value >= 0x000000 && value <= 0xFFFFFF;
+        }
+        void drawButton(Button newButton) {
+            if (isHexColor(newButton.color)) {
+                Brain.Screen.setFillColor(newButton.color);
+                Brain.Screen.drawRectangle(newButton.x, newButton.y, newButton.width, newButton.height);
+            }
+            if (newButton.text) {
+                unsigned int midX = newButton.x + (newButton.width/2) - (strlen(newButton.text)*5);
+                unsigned int midY = newButton.x + (newButton.height/2) - 8;
+                Brain.Screen.setPenColor(white);
+                Brain.Screen.printAt(midX, midY, newButton.text);
+            }
+        }
+        std::array<unsigned int, 10> usedButtons (unsigned int pageId) {
+            std::array<unsigned int, 10> buttonsUsed;
+            unsigned int usedPartsAvail = 0;
+            for (int i = 0; i < 10; i++) {
+                if (pages[pageId]->buttons[i]->x != NULL) {
+                    buttonsUsed[usedPartsAvail] = i;
+                    usedPartsAvail++;
+                }
+            }
+            return buttonsUsed;
         }
 };

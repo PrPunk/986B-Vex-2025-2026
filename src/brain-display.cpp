@@ -9,8 +9,6 @@
 
 #include "vex.h"
 #include <brain-display.h>
-#include <array>
-#include "images.cpp"
 
 class BrainDisplay {
     public:

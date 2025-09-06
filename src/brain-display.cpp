@@ -23,12 +23,12 @@ class BrainDisplay {
                 printf("pageId is not within valid range\n");
                 return;
             }
-            std::array<unsigned int, 10> reservedButtons = usedButtons(pageId);
+            std::array<int, 10> reservedButtons = usedButtons(pageId);
+
             for (int i = 0; i < 10; i++) {
+                if (reservedButtons[i] == -1) break;  // stop at unused slots
                 if (reservedButtons[i] == buttonId) {
-                    //error: buttonId is in use
-                    printf("%d", reservedButtons[0]);
-                    printf("buttonId is in use: used buttons are\n");
+                    printf("buttonId is in use\n");
                     return;
                 }
             }
@@ -103,15 +103,19 @@ class BrainDisplay {
                 Brain.Screen.printAt(midX, midY, newButton.text);
             }
         }
-        std::array<unsigned int, 10> usedButtons (unsigned int pageId) {
-            std::array<unsigned int, 10> buttonsUsed;
-            unsigned int usedPartsAvail = 0;
+        std::array<int, 10> usedButtons(unsigned int pageId) {
+            std::array<int, 10> buttonsUsed;
+            buttonsUsed.fill(-1);  // sentinel for “empty”
+            int usedCount = 0;
+
             for (int i = 0; i < 10; i++) {
                 if (pages[pageId].buttons[i] != nullptr && pages[pageId].buttons[i]->x != 0) {
-                    buttonsUsed[usedPartsAvail] = i;
-                    usedPartsAvail++;
+                    buttonsUsed[usedCount] = i;
+                    usedCount++;
                 }
             }
+
             return buttonsUsed;
         }
+
 };

@@ -82,6 +82,7 @@ class BrainDisplay {
         void drawButton(Button newButton) {
             if (isHexColor(newButton.color)) {
                 Brain.Screen.setFillColor(newButton.color);
+                Brain.Screen.setPenColor(newButton.color);
                 Brain.Screen.drawRectangle(newButton.x, newButton.y, newButton.width, newButton.height);
             }
             if (newButton.text) {

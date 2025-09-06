@@ -27,7 +27,7 @@ class BrainDisplay {
 
             for (int i = 0; i < 10; i++) {
                 if (reservedButtons[i] == -1) break;  // stop at unused slots
-                if (false) {
+                if (reservedButtons[i] == buttonId) {
                     printf("buttonId is in use\n");
                     return;
                 }

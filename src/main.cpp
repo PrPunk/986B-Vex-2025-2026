@@ -76,10 +76,26 @@ void usercontrol(void) {
                     // prevent wasted resources.
   }
 }
+void testCallback (int hi) {
+  CT1.rumble("..--..");
+
+}
+
 
 void drawOnScreen() {
   //Place code here
-
+  Button newButton;
+  newButton.x = 200;
+  newButton.y = 100;
+  newButton.width = 100;
+  newButton.height = 100;
+  newButton.callback = testCallback;
+  newButton.param = 0;
+  char newText[20] = "Hello";
+  strcpy(newButton.text, newText);
+  newButton.color = 0xff0000;
+  brainDisplay.createButton(0, 0, newButton);
+  brainDisplay.switchPage(0);
 
 
 }

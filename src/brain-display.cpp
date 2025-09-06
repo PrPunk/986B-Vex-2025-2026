@@ -18,7 +18,7 @@ class BrainDisplay {
 
         
         void createButton(unsigned int pageId, unsigned int buttonId, Button newButton) {
-            if (!(pageId < 5 && pageId >= 0 && pageId != NULL)) {
+            if (!(pageId < 5 && pageId >= 0 && pageId != 0)) {
                 //error: pageId is not within valid range
                 return;
             }
@@ -29,7 +29,7 @@ class BrainDisplay {
                     return;
                 }
             }
-            if (newButton.x == NULL || newButton.y == NULL || newButton.width == NULL || newButton.height == NULL || newButton.callback == NULL) {
+            if (newButton.x == 0 || newButton.y == 0 || newButton.width == 0 || newButton.height == 0 || newButton.callback == NULL) {
                 //error: button is incomplete. Missing required values.
                 return;
             }
@@ -85,7 +85,8 @@ class BrainDisplay {
                 Brain.Screen.setPenColor(newButton.color);
                 Brain.Screen.drawRectangle(newButton.x, newButton.y, newButton.width, newButton.height);
             }
-            if (newButton.text) {
+            const char emptyString[20] = "";
+            if (newButton.text != emptyString) {
                 unsigned int midX = newButton.x + (newButton.width/2) - (strlen(newButton.text)*5);
                 unsigned int midY = newButton.x + (newButton.height/2) - 8;
                 Brain.Screen.setPenColor(white);
@@ -96,7 +97,7 @@ class BrainDisplay {
             std::array<unsigned int, 10> buttonsUsed;
             unsigned int usedPartsAvail = 0;
             for (int i = 0; i < 10; i++) {
-                if (pages[pageId]->buttons[i]->x != NULL) {
+                if (pages[pageId]->buttons[i]->x != 0) {
                     buttonsUsed[usedPartsAvail] = i;
                     usedPartsAvail++;
                 }

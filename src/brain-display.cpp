@@ -27,7 +27,8 @@ class BrainDisplay {
             for (int i = 0; i < 10; i++) {
                 if (reservedButtons[i] == buttonId) {
                     //error: buttonId is in use
-                    printf("buttonId is in use: used buttons are %d, %d, %d, %d, %d, %d, %d, %d, %d, %d\n", reservedButtons[0], reservedButtons[1], reservedButtons[2], reservedButtons[3], reservedButtons[4], reservedButtons[5], reservedButtons[6], reservedButtons[7], reservedButtons[8], reservedButtons[9]);
+                    printf("%d", reservedButtons[0]);
+                    printf("buttonId is in use: used buttons are\n");
                     return;
                 }
             }

@@ -12,29 +12,33 @@
 
 class BrainDisplay {
     public:
-        Page *pages[5];
+        Page pages[5];
         int currentPage = 0;
 
 
         
         void createButton(unsigned int pageId, unsigned int buttonId, Button newButton) {
-            if (!(pageId < 5 && pageId >= 0 && pageId != 0)) {
+            if (!(pageId < 5 && pageId >= 0)) {
                 //error: pageId is not within valid range
+                printf("pageId is not within valid range\n");
                 return;
             }
             std::array<unsigned int, 10> reservedButtons = usedButtons(pageId);
             for (int i = 0; i < 10; i++) {
                 if (reservedButtons[i] == buttonId) {
                     //error: buttonId is in use
+                    printf("buttonId is in use\n");
                     return;
                 }
             }
             if (newButton.x == 0 || newButton.y == 0 || newButton.width == 0 || newButton.height == 0 || newButton.callback == NULL) {
                 //error: button is incomplete. Missing required values.
+                printf("button is incomplete. Missing required values.\n");
                 return;
             }
             drawButton(newButton);
-            pages[pageId]->buttons[buttonId] = new Button(newButton);
+            pages[pageId].buttons[buttonId] = new Button(newButton);
+            printf("button created\n");
 
         }
 
@@ -42,8 +46,12 @@ class BrainDisplay {
             int x = Brain.Screen.xPosition();
             int y = Brain.Screen.yPosition();
             for (int i = 0; i < 10; i++) {
-                Button *questioningButton = pages[currentPage]->buttons[i];
-                if (x >= questioningButton->x && x <= (questioningButton->x + questioningButton->width) && y >= questioningButton->y && y <= (questioningButton->y + questioningButton->height)) {
+                Button* questioningButton = pages[currentPage].buttons[i];
+                if (questioningButton != nullptr &&
+                    x >= questioningButton->x &&
+                    x <= (questioningButton->x + questioningButton->width) &&
+                    y >= questioningButton->y &&
+                    y <= (questioningButton->y + questioningButton->height)) {
                     questioningButton->callback(questioningButton->param);
                 }
             }
@@ -53,11 +61,13 @@ class BrainDisplay {
             if (pageId < 5) {
                 Brain.Screen.clearScreen();
                 currentPage = pageId;
-                if (pages[pageId]->hasImage) {
+                if (pages[pageId].hasImage) {
                     drawLogo();
                 }
                 for (int i = 0; i < 10; i++) {
-                    drawButton(*pages[pageId]->buttons[i]);
+                    if (pages[pageId].buttons[i] != nullptr) {
+                        drawButton(*pages[pageId].buttons[i]);
+                    }
                 }
             } else {
                 //error: pageId is out of range.
@@ -66,7 +76,7 @@ class BrainDisplay {
 
         void addImage(unsigned int pageId) {
             if (pageId < 5) {
-                pages[pageId]->hasImage = true;
+                pages[pageId].hasImage = true;
                 if (currentPage == pageId) {
                     switchPage(pageId);
                 }
@@ -85,10 +95,9 @@ class BrainDisplay {
                 Brain.Screen.setPenColor(newButton.color);
                 Brain.Screen.drawRectangle(newButton.x, newButton.y, newButton.width, newButton.height);
             }
-            const char emptyString[20] = "";
-            if (newButton.text != emptyString) {
+            if (strlen(newButton.text) > 0) {
                 unsigned int midX = newButton.x + (newButton.width/2) - (strlen(newButton.text)*5);
-                unsigned int midY = newButton.x + (newButton.height/2) - 8;
+                unsigned int midY = newButton.y + (newButton.height/2) - 8;
                 Brain.Screen.setPenColor(white);
                 Brain.Screen.printAt(midX, midY, newButton.text);
             }
@@ -97,7 +106,7 @@ class BrainDisplay {
             std::array<unsigned int, 10> buttonsUsed;
             unsigned int usedPartsAvail = 0;
             for (int i = 0; i < 10; i++) {
-                if (pages[pageId]->buttons[i]->x != 0) {
+                if (pages[pageId].buttons[i] != nullptr && pages[pageId].buttons[i]->x != 0) {
                     buttonsUsed[usedPartsAvail] = i;
                     usedPartsAvail++;
                 }

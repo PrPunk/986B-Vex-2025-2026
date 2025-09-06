@@ -25,4 +25,10 @@ struct Button {
 struct Page {
     Button *buttons[10];
     bool hasImage;
+
+    Page() {
+        for (int i = 0; i < 10; i++) {
+            buttons[i] = nullptr;   // initialize
+        }
+    }
 };

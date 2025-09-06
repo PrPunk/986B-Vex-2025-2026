@@ -61,7 +61,6 @@ void usercontrol(void) {
     R1.spin(fwd, (CT1.Axis3.value()/1.270), pct);
     R2.spin(fwd, (CT1.Axis3.value()/1.270), pct);
     R3.spin(fwd, (CT1.Axis3.value()/1.270), pct);
-
     
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
@@ -96,6 +95,7 @@ void drawOnScreen() {
   newButton.color = 0xff0000;
   brainDisplay.createButton(0, 0, newButton);
   brainDisplay.switchPage(0);
+  printf("finished\n");
 
 
 }

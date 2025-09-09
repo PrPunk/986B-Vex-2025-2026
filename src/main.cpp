@@ -80,6 +80,7 @@ void usercontrol(void) {
 void setAuton(int autonNumber) {
   // Set autonomous mode.
   autonMode = autonNumber;
+  CT1.rumble("-.-.-");
 }
 
 void goToPage(int pageId) {

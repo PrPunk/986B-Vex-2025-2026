@@ -112,7 +112,7 @@ void drawOnScreen() {
   newButton2.param = 3;
   char newText2[20] = "Skills Auton";
   strcpy(newButton2.text, newText2);
-  newButton2.color = 0xff0000;
+  newButton2.color = 0x04cc33;
   brainDisplay.createButton(1,0, newButton2);
 
   Button newButton3;
@@ -136,7 +136,7 @@ void drawOnScreen() {
   newButton4.param = 1;
   char newText4[20] = "Left Side";
   strcpy(newButton4.text, newText4);
-  newButton4.color = 0xff0000;
+  newButton4.color = 0x02749e;
   brainDisplay.createButton(1,2, newButton4);
 
   Button newButton5;
@@ -148,7 +148,7 @@ void drawOnScreen() {
   newButton5.param = 2;
   char newText5[20] = "Right Side";
   strcpy(newButton5.text, newText5);
-  newButton5.color = 0xff0000;
+  newButton5.color = 0x02749e;
   brainDisplay.createButton(1,3, newButton5);
 
   Button newButton6;
@@ -160,7 +160,7 @@ void drawOnScreen() {
   newButton6.param = 1;
   char newText6[20] = "Auton";
   strcpy(newButton6.text, newText6);
-  newButton6.color = 0xff0000;
+  newButton6.color = 0x02749e;
   brainDisplay.createButton(0,0, newButton6);
   brainDisplay.switchPage(0);
 

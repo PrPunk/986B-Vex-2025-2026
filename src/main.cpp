@@ -157,7 +157,7 @@ void drawOnScreen() {
   newButton6.color = 0xff0000;
   brainDisplay.createButton(0,0, newButton6);
 
-  brainDisplay.switchPage(1);
+  brainDisplay.switchPage(0);
 
 }
 

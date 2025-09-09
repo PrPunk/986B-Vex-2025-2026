@@ -146,7 +146,7 @@ void drawOnScreen() {
   brainDisplay.createButton(1,3, newButton5);
 
   Button newButton6;
-  newButton6.x = 280;
+  newButton6.x = 180;
   newButton6.y = 160;
   newButton6.width = 140;
   newButton6.height = 60;

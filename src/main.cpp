@@ -77,7 +77,7 @@ void usercontrol(void) {
 }
 
 void goToPage(int pageId) {
-  brainDisplay.switchPage(0);
+  brainDisplay.switchPage(pageId);
 }
 
 
@@ -146,7 +146,7 @@ void drawOnScreen() {
   brainDisplay.createButton(1,3, newButton5);
 
   Button newButton6;
-  newButton6.x = 300;
+  newButton6.x = 280;
   newButton6.y = 160;
   newButton6.width = 140;
   newButton6.height = 60;
@@ -157,7 +157,7 @@ void drawOnScreen() {
   newButton6.color = 0xff0000;
   brainDisplay.createButton(0,0, newButton6);
 
-  brainDisplay.switchPage(0);
+  brainDisplay.switchPage(1);
 
 }
 

@@ -38,7 +38,6 @@ class BrainDisplay {
                 return;
             }
             drawButton(newButton);
-            printf("New Button Param is %d", newButton.param);
             pages[pageId].buttons[buttonId] = new Button(newButton);
             printf("button created\n");
 
@@ -54,7 +53,6 @@ class BrainDisplay {
                     x <= (questioningButton->x + questioningButton->width) &&
                     y >= questioningButton->y &&
                     y <= (questioningButton->y + questioningButton->height)) {
-                    printf("Clicked Button param is %d", questioningButton->param);
                     questioningButton->callback(questioningButton->param);
                 }
             }

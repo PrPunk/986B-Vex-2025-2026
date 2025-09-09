@@ -15,6 +15,7 @@ BrainDisplay brainDisplay;
 // A global instance of competition
 competition Competition;
 
+int autonMode = 0;
 
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
@@ -76,6 +77,11 @@ void usercontrol(void) {
   }
 }
 
+void setAuton(int autonNumber) {
+  // Set autonomous mode.
+  autonMode = autonNumber;
+}
+
 void goToPage(int pageId) {
   brainDisplay.switchPage(pageId);
 }
@@ -87,8 +93,8 @@ void drawOnScreen() {
   Button newButton;
   newButton.x = 350;
   newButton.y = 200;
-  newButton.width = 100;
-  newButton.height = 20;
+  newButton.width = 140;
+  newButton.height = 60;
   newButton.callback = goToPage;
   newButton.param = 0;
   char newText[20] = "Return";
@@ -102,8 +108,8 @@ void drawOnScreen() {
   newButton2.y = 60;
   newButton2.width = 140;
   newButton2.height = 60;
-  newButton2.callback = goToPage;
-  newButton2.param = 0;
+  newButton2.callback = setAuton;
+  newButton2.param = 3;
   char newText2[20] = "Skills Auton";
   strcpy(newButton2.text, newText2);
   newButton2.color = 0xff0000;
@@ -126,8 +132,8 @@ void drawOnScreen() {
   newButton4.y = 60;
   newButton4.width = 140;
   newButton4.height = 60;
-  newButton4.callback = goToPage;
-  newButton4.param = 0;
+  newButton4.callback = setAuton;
+  newButton4.param = 1;
   char newText4[20] = "Left Side";
   strcpy(newButton4.text, newText4);
   newButton4.color = 0xff0000;
@@ -138,8 +144,8 @@ void drawOnScreen() {
   newButton5.y = 160;
   newButton5.width = 140;
   newButton5.height = 60;
-  newButton5.callback = goToPage;
-  newButton5.param = 0;
+  newButton5.callback = setAuton;
+  newButton5.param = 2;
   char newText5[20] = "Right Side";
   strcpy(newButton5.text, newText5);
   newButton5.color = 0xff0000;
@@ -156,8 +162,19 @@ void drawOnScreen() {
   strcpy(newButton6.text, newText6);
   newButton6.color = 0xff0000;
   brainDisplay.createButton(0,0, newButton6);
-
   brainDisplay.switchPage(0);
+
+  Button newButton7;
+  newButton7.x = 180;
+  newButton7.y = 60;
+  newButton7.width = 140;
+  newButton7.height = 60;
+  newButton7.callback = goToPage;
+  newButton7.param = 2;
+  char newText7[20] = "Image";
+  strcpy(newButton7.text, newText7);
+  newButton7.color = 0xff0000;
+  brainDisplay.createButton(0,1, newButton7);
 
 }
 

@@ -32,12 +32,13 @@ class BrainDisplay {
                     return;
                 }
             }
-            if (newButton.x == 0 || newButton.y == 0 || newButton.width == 0 || newButton.height == 0 || newButton.callback == NULL) {
+            if (newButton.width == 0 || newButton.height == 0 || newButton.callback == NULL) {
                 //error: button is incomplete. Missing required values.
                 printf("button is incomplete. Missing required values.\n");
                 return;
             }
             drawButton(newButton);
+            printf("New Button Param is %d", newButton.param);
             pages[pageId].buttons[buttonId] = new Button(newButton);
             printf("button created\n");
 
@@ -53,6 +54,7 @@ class BrainDisplay {
                     x <= (questioningButton->x + questioningButton->width) &&
                     y >= questioningButton->y &&
                     y <= (questioningButton->y + questioningButton->height)) {
+                    printf("Clicked Button param is %d", questioningButton->param);
                     questioningButton->callback(questioningButton->param);
                 }
             }

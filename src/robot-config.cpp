@@ -16,6 +16,8 @@ motor L3 = motor(PORT1, ratio6_1, false);
 motor R1 = motor(PORT6, ratio6_1, true);
 motor R2 = motor(PORT7, ratio6_1, true);
 motor R3 = motor(PORT8, ratio6_1, true);
+motor intakeL = motor(PORT, ratio6_1,);
+motor intakeR = motor(PORT, ratio6_1,);
 // VEXcode generated functions
 
 

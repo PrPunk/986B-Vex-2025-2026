@@ -55,13 +55,24 @@ void usercontrol(void) {
   // User control code here, inside the loop
   while (1) {
 
-
+    // Tank drive controls
     L1.spin(fwd, (CT1.Axis2.value()/1.270), pct);
     L2.spin(fwd, (CT1.Axis2.value()/1.270), pct);
     L3.spin(fwd, (CT1.Axis2.value()/1.270), pct);
     R1.spin(fwd, (CT1.Axis3.value()/1.270), pct);
     R2.spin(fwd, (CT1.Axis3.value()/1.270), pct);
     R3.spin(fwd, (CT1.Axis3.value()/1.270), pct);
+    
+    // Intake controls
+    if (CT1.ButtonR1.pressing()) {
+      // Spits out blocks
+      intakeL.spin(fwd, -100, pct);
+      intakeR.spin(fwd, -100, pct);
+    } else if (CT1.ButtonR2.pressing()) {
+      // Sucks in blocks
+      intakeL.spin(fwd, 100, pct);
+      intakeR.spin(fwd, 100, pct);
+    }
     
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo

@@ -16,6 +16,7 @@ BrainDisplay brainDisplay;
 competition Competition;
 
 int autonMode = 0;
+bool intakeOn = false;
 
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
@@ -64,14 +65,19 @@ void usercontrol(void) {
     R3.spin(fwd, (CT1.Axis3.value()/1.270), pct);
     
     // Intake controls
-    if (CT1.ButtonR1.pressing()) {
-      // Spits out blocks
-      intakeL.spin(fwd, -100, pct);
-      intakeR.spin(fwd, -100, pct);
-    } else if (CT1.ButtonR2.pressing()) {
-      // Sucks in blocks
+    if (CT1.ButtonR2.pressing()) {
+      // Starts sucking in for the intake
       intakeL.spin(fwd, 100, pct);
       intakeR.spin(fwd, 100, pct);
+      intakeOn = true;
+    } else if (CT1.ButtonR1.pressing()) {
+      // Stops sucking in and starts spitting out
+      intakeL.spin(fwd, -100, pct);
+      intakeR.spin(fwd, -100, pct);
+      intakeOn = false;
+    } else if (!intakeOn) {
+      intakeL.stop(coast);
+      intakeR.stop(coast);
     }
     
     // This is the main execution loop for the user control program.

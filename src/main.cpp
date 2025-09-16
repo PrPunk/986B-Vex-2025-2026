@@ -15,6 +15,8 @@ BrainDisplay brainDisplay;
 // A global instance of competition
 competition Competition;
 
+int autonMode = 0;
+bool intakeOn = false;
 
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
@@ -54,13 +56,29 @@ void usercontrol(void) {
   // User control code here, inside the loop
   while (1) {
 
-
+    // Tank drive controls
     L1.spin(fwd, (CT1.Axis2.value()/1.270), pct);
     L2.spin(fwd, (CT1.Axis2.value()/1.270), pct);
     L3.spin(fwd, (CT1.Axis2.value()/1.270), pct);
     R1.spin(fwd, (CT1.Axis3.value()/1.270), pct);
     R2.spin(fwd, (CT1.Axis3.value()/1.270), pct);
     R3.spin(fwd, (CT1.Axis3.value()/1.270), pct);
+    
+    // Intake controls
+    if (CT1.ButtonR2.pressing()) {
+      // Starts sucking in for the intake
+      intakeL.spin(fwd, 100, pct);
+      intakeR.spin(fwd, 100, pct);
+      intakeOn = true;
+    } else if (CT1.ButtonR1.pressing()) {
+      // Stops sucking in and starts spitting out
+      intakeL.spin(fwd, -100, pct);
+      intakeR.spin(fwd, -100, pct);
+      intakeOn = false;
+    } else if (!intakeOn) {
+      intakeL.stop(coast);
+      intakeR.stop(coast);
+    }
     
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
@@ -76,6 +94,12 @@ void usercontrol(void) {
   }
 }
 
+void setAuton(int autonNumber) {
+  // Set autonomous mode.
+  autonMode = autonNumber;
+  CT1.rumble("-.-.-");
+}
+
 void goToPage(int pageId) {
   brainDisplay.switchPage(pageId);
 }
@@ -87,8 +111,8 @@ void drawOnScreen() {
   Button newButton;
   newButton.x = 350;
   newButton.y = 200;
-  newButton.width = 100;
-  newButton.height = 20;
+  newButton.width = 140;
+  newButton.height = 60;
   newButton.callback = goToPage;
   newButton.param = 0;
   char newText[20] = "Return";
@@ -102,11 +126,11 @@ void drawOnScreen() {
   newButton2.y = 60;
   newButton2.width = 140;
   newButton2.height = 60;
-  newButton2.callback = goToPage;
-  newButton2.param = 0;
+  newButton2.callback = setAuton;
+  newButton2.param = 3;
   char newText2[20] = "Skills Auton";
   strcpy(newButton2.text, newText2);
-  newButton2.color = 0xff0000;
+  newButton2.color = 0x04cc33;
   brainDisplay.createButton(1,0, newButton2);
 
   Button newButton3;
@@ -126,11 +150,11 @@ void drawOnScreen() {
   newButton4.y = 60;
   newButton4.width = 140;
   newButton4.height = 60;
-  newButton4.callback = goToPage;
-  newButton4.param = 0;
+  newButton4.callback = setAuton;
+  newButton4.param = 1;
   char newText4[20] = "Left Side";
   strcpy(newButton4.text, newText4);
-  newButton4.color = 0xff0000;
+  newButton4.color = 0x02749e;
   brainDisplay.createButton(1,2, newButton4);
 
   Button newButton5;
@@ -138,15 +162,15 @@ void drawOnScreen() {
   newButton5.y = 160;
   newButton5.width = 140;
   newButton5.height = 60;
-  newButton5.callback = goToPage;
-  newButton5.param = 0;
+  newButton5.callback = setAuton;
+  newButton5.param = 2;
   char newText5[20] = "Right Side";
   strcpy(newButton5.text, newText5);
-  newButton5.color = 0xff0000;
+  newButton5.color = 0x02749e;
   brainDisplay.createButton(1,3, newButton5);
 
   Button newButton6;
-  newButton6.x = 280;
+  newButton6.x = 180;
   newButton6.y = 160;
   newButton6.width = 140;
   newButton6.height = 60;
@@ -154,10 +178,21 @@ void drawOnScreen() {
   newButton6.param = 1;
   char newText6[20] = "Auton";
   strcpy(newButton6.text, newText6);
-  newButton6.color = 0xff0000;
+  newButton6.color = 0x02749e;
   brainDisplay.createButton(0,0, newButton6);
-
   brainDisplay.switchPage(0);
+
+  Button newButton7;
+  newButton7.x = 180;
+  newButton7.y = 60;
+  newButton7.width = 140;
+  newButton7.height = 60;
+  newButton7.callback = goToPage;
+  newButton7.param = 2;
+  char newText7[20] = "Image";
+  strcpy(newButton7.text, newText7);
+  newButton7.color = 0xff0000;
+  brainDisplay.createButton(0,1, newButton7);
 
 }
 

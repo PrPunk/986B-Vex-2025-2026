@@ -11,6 +11,9 @@ extern motor L3;
 extern motor R1;
 extern motor R2;
 extern motor R3;
+extern motor intakeL;
+extern motor intakeR;
+
 
 // Initialize
 void  vexcodeInit( void );

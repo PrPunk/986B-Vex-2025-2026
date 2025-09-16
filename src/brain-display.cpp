@@ -95,12 +95,13 @@ class BrainDisplay {
                 Brain.Screen.setFillColor(newButton.color);
                 Brain.Screen.setPenColor(newButton.color);
                 Brain.Screen.drawRectangle(newButton.x, newButton.y, newButton.width, newButton.height);
+            } else {
+                Brain.Screen.setFillColor(0x000000);
             }
             if (strlen(newButton.text) > 0) {
                 unsigned int midX = newButton.x + (newButton.width/2) - (strlen(newButton.text)*5);
                 unsigned int midY = newButton.y + (newButton.height/2) - 8;
                 Brain.Screen.setPenColor(white);
-                Brain.Screen.setFillColor(newButton.color);
                 Brain.Screen.printAt(midX, midY, newButton.text);
             }
         }

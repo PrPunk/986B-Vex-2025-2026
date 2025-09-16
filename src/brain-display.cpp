@@ -98,7 +98,7 @@ class BrainDisplay {
                 Brain.Screen.drawRectangle(newButton.x, newButton.y, newButton.width, newButton.height);
             } else {
                 printf("color is not defined");
-                Brain.Screen.setFillColor(0x000000);
+                Brain.Screen.setFillColor(black);
             }
             if (strlen(newButton.text) > 0) {
                 unsigned int midX = newButton.x + (newButton.width/2) - (strlen(newButton.text)*5);

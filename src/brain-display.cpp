@@ -100,6 +100,7 @@ class BrainDisplay {
                 unsigned int midX = newButton.x + (newButton.width/2) - (strlen(newButton.text)*5);
                 unsigned int midY = newButton.y + (newButton.height/2) - 8;
                 Brain.Screen.setPenColor(white);
+                Brain.Screen.setFillColor(newButton.color);
                 Brain.Screen.printAt(midX, midY, newButton.text);
             }
         }

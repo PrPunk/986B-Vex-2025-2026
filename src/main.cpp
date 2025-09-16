@@ -1,7 +1,7 @@
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
 /*    Module:       main.cpp                                                  */
-/*    Author:       Josiah Schatz                                             */
+/*    Author:       Josiah Schatz and Sherwin Sagadam                         */
 /*    Created:      Sat 23 Aug 2025                                           */
 /*    Description:  Team 986B bot for 2025-2026                               */
 /*                                                                            */
@@ -193,7 +193,7 @@ void drawOnScreen() {
   strcpy(newButton7.text, newText7);
   newButton7.color = 0xff0000;
   brainDisplay.createButton(0,1, newButton7);
-  
+
 }
 
 //

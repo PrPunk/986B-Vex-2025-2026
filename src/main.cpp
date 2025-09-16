@@ -194,6 +194,18 @@ void drawOnScreen() {
   newButton7.color = 0xff0000;
   brainDisplay.createButton(0,1, newButton7);
 
+  Button newButton8;
+  newButton8.x = 180;
+  newButton8.y = 60;
+  newButton8.width = 140;
+  newButton8.height = 60;
+  newButton8.callback = goToPage;
+  newButton8.param = 0;
+  char newText8[20] = "Image";
+  strcpy(newButton8.text, newText8);
+  brainDisplay.createButton(3,0, newButton8);
+  brainDisplay.switchPage(3);
+
 }
 
 //

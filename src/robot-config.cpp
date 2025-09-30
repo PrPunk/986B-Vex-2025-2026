@@ -18,6 +18,8 @@ motor R2 = motor(PORT7, ratio6_1, true);
 motor R3 = motor(PORT8, ratio6_1, true);
 motor intakeL = motor(PORT9, ratio6_1, false);
 motor intakeR = motor(PORT10, ratio6_1, true);
+
+digital_out outakePistons(Brain.ThreeWirePort.B);
 // VEXcode generated functions
 
 

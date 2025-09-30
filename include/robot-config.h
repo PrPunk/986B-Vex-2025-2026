@@ -13,7 +13,7 @@ extern motor R2;
 extern motor R3;
 extern motor intakeL;
 extern motor intakeR;
-
+extern digital_out outakePistons;
 
 // Initialize
 void  vexcodeInit( void );

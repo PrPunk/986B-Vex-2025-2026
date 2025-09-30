@@ -79,7 +79,12 @@ void usercontrol(void) {
       intakeL.stop(coast);
       intakeR.stop(coast);
     }
-    
+
+    if (CT1.ButtonDown.pressing()) {
+      outakePistons.set(0);
+    } else if (CT1.ButtonUp.pressing()) {
+      outakePistons.set(1);
+    }
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
     // values based on feedback from the joysticks.

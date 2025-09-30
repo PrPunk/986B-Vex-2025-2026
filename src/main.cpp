@@ -85,6 +85,13 @@ void usercontrol(void) {
     } else if (CT1.ButtonUp.pressing()) {
       outakePistons.set(1);
     }
+
+    // Eliminates the judges if they give a bad score for our robot.
+    if (CT1.ButtonLeft.pressing()) {
+      pnu2.set(1);
+    } else {
+      pnu2.set(0);
+    }
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
     // values based on feedback from the joysticks.

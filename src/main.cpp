@@ -23,18 +23,9 @@ float degPerInch = 47.012;
 
 void moveStraight(float distance, int speed) {
   int degreesToTurn = degPerInch * distance;
-  L1.resetPosition();
-  L1.spinToPosition(degreesToTurn, deg, speed, vex::velocityUnits::pct);
-  L2.resetPosition();
-  L2.spinToPosition(degreesToTurn, deg, speed, vex::velocityUnits::pct);
-  L3.resetPosition();
-  L3.spinToPosition(degreesToTurn, deg, speed, vex::velocityUnits::pct);
-  R1.resetPosition();
-  R1.spinToPosition(degreesToTurn, deg, speed, vex::velocityUnits::pct);
-  R2.resetPosition();
-  R2.spinToPosition(degreesToTurn, deg, speed, vex::velocityUnits::pct);
-  R3.resetPosition();
-  R3.spinToPosition(degreesToTurn, deg, speed, vex::velocityUnits::pct);
+  driveTrain.resetPosition();
+  wait(100, vex::timeUnits::msec);
+  driveTrain.spinToPosition(degreesToTurn, deg, speed, vex::velocityUnits::pct);
 }
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!

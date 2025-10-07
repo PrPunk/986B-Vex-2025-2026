@@ -16,5 +16,9 @@ extern motor intakeR;
 extern digital_out outakePistons;
 extern digital_out pnu2;
 
+extern motor_group leftSide;
+extern motor_group rightSide;
+extern motor_group driveTrain;
+
 // Initialize
 void  vexcodeInit( void );

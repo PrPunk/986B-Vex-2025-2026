@@ -66,7 +66,7 @@ void pre_auton(void) {
 
 void autonomous(void) {
   // Insert autonomous user code here.
-  moveStraight(10, 20);
+  turnRobot(45, 20);
 }
 
 /*---------------------------------------------------------------------------*/

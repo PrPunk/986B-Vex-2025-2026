@@ -32,17 +32,30 @@ void moveStraight(float distance, int speed) {
 void turnRobot(int degrees, int speed) {
   float inchesToTurn = inchPerDeg * degrees;
   int degreesToTurn = degPerInch * inchesToTurn;
+  degreesToTurn = abs(degreesToTurn) - 40; // Adjust for overshooting
   leftSide.resetPosition();
   rightSide.resetPosition();
   wait(100, vex::timeUnits::msec);
   if (degrees > 0) {
     // Turn counterclockwise
-    leftSide.spinToPosition(degreesToTurn, deg, speed, vex::velocityUnits::pct);
-    rightSide.spinToPosition(-degreesToTurn, deg, speed, vex::velocityUnits::pct);
+    while (leftSide.position(deg) <= degreesToTurn && rightSide.position(deg) >= -degreesToTurn) {
+      leftSide.spin(fwd, speed, pct);
+      rightSide.spin(fwd, -speed, pct);
+    }
+    leftSide.stop(brake);
+    rightSide.stop(brake);
+    // leftSide.spinToPosition(degreesToTurn, deg, speed, vex::velocityUnits::pct);
+    // rightSide.spinToPosition(-degreesToTurn, deg, speed, vex::velocityUnits::pct);
   } else if (degrees < 0) {
     // Turn clockwise
-    leftSide.spinToPosition(degreesToTurn, deg, speed, vex::velocityUnits::pct);
-    rightSide.spinToPosition(-degreesToTurn, deg, speed, vex::velocityUnits::pct);
+    while (leftSide.position(deg) >= -degreesToTurn && rightSide.position(deg) <= degreesToTurn) {
+      leftSide.spin(fwd, -speed, pct);
+      rightSide.spin(fwd, speed, pct);
+    }
+    leftSide.stop(brake);
+    rightSide.stop(brake);
+    // leftSide.spinToPosition(degreesToTurn, deg, speed, vex::velocityUnits::pct);
+    // rightSide.spinToPosition(-degreesToTurn, deg, speed, vex::velocityUnits::pct);
   };
 }
 
@@ -66,7 +79,7 @@ void pre_auton(void) {
 
 void autonomous(void) {
   // Insert autonomous user code here.
-  turnRobot(90, 20);
+  turnRobot(180, 30);
 }
 
 /*---------------------------------------------------------------------------*/

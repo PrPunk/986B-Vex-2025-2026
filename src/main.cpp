@@ -37,12 +37,12 @@ void turnRobot(int degrees, int speed) {
   wait(100, vex::timeUnits::msec);
   if (degrees > 0) {
     // Turn counterclockwise
-    leftSide.spinToPosition(degreesToTurn, deg, -speed, vex::velocityUnits::pct);
-    rightSide.spinToPosition(degreesToTurn, deg, speed, vex::velocityUnits::pct);
+    leftSide.spinToPosition(degreesToTurn, deg, speed, vex::velocityUnits::pct);
+    rightSide.spinToPosition(-degreesToTurn, deg, speed, vex::velocityUnits::pct);
   } else if (degrees < 0) {
     // Turn clockwise
     leftSide.spinToPosition(degreesToTurn, deg, speed, vex::velocityUnits::pct);
-    rightSide.spinToPosition(degreesToTurn, deg, -speed, vex::velocityUnits::pct);
+    rightSide.spinToPosition(-degreesToTurn, deg, speed, vex::velocityUnits::pct);
   };
 }
 
@@ -66,7 +66,7 @@ void pre_auton(void) {
 
 void autonomous(void) {
   // Insert autonomous user code here.
-  turnRobot(45, 20);
+  turnRobot(90, 20);
 }
 
 /*---------------------------------------------------------------------------*/

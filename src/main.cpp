@@ -18,6 +18,7 @@ competition Competition;
 int autonMode = 0;
 bool intakeOn = false;
 float degPerInch = 47.012;
+float inchPerDeg = 0.1069014;
 
 
 
@@ -27,6 +28,24 @@ void moveStraight(float distance, int speed) {
   wait(100, vex::timeUnits::msec);
   driveTrain.spinToPosition(degreesToTurn, deg, speed, vex::velocityUnits::pct);
 }
+
+void turnRobot(int degrees, int speed) {
+  float inchesToTurn = inchPerDeg * degrees;
+  int degreesToTurn = degPerInch * inchesToTurn;
+  leftSide.resetPosition();
+  rightSide.resetPosition();
+  wait(100, vex::timeUnits::msec);
+  if (degrees > 0) {
+    // Turn counterclockwise
+    leftSide.spinToPosition(degreesToTurn, deg, -speed, vex::velocityUnits::pct);
+    rightSide.spinToPosition(degreesToTurn, deg, speed, vex::velocityUnits::pct);
+  } else if (degrees < 0) {
+    // Turn clockwise
+    leftSide.spinToPosition(degreesToTurn, deg, speed, vex::velocityUnits::pct);
+    rightSide.spinToPosition(degreesToTurn, deg, -speed, vex::velocityUnits::pct);
+  };
+}
+
 void pre_auton(void) {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();

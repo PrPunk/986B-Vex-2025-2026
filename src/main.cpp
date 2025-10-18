@@ -104,20 +104,25 @@ void usercontrol(void) {
     R2.spin(fwd, (CT1.Axis3.value()/1.270), pct);
     R3.spin(fwd, (CT1.Axis3.value()/1.270), pct);
     
-    // Intake controls
+    // Intake and outake controls
     if (CT1.ButtonR2.pressing()) {
       // Starts sucking in for the intake
+      // Starts spitting out for outake
       intakeL.spin(fwd, 100, pct);
       intakeR.spin(fwd, 100, pct);
+      outake1.spin(fwd, 100, pct);
       intakeOn = true;
     } else if (CT1.ButtonR1.pressing()) {
-      // Stops sucking in and starts spitting out
+      // Stops sucking in and starts spitting out for intake
+      // Stops spitting out and start sucking in for outake
       intakeL.spin(fwd, -100, pct);
       intakeR.spin(fwd, -100, pct);
+      outake1.spin(fwd, -100, pct);
       intakeOn = false;
     } else if (!intakeOn) {
       intakeL.stop(coast);
       intakeR.stop(coast);
+      outake1.stop(coast);
     }
 
     if (CT1.ButtonDown.pressing()) {

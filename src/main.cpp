@@ -78,8 +78,23 @@ void pre_auton(void) {
 /*---------------------------------------------------------------------------*/
 
 void autonomous(void) {
-  // Insert autonomous user code here.
-  turnRobot(180, 30);
+  // Insert autonomous user code here
+  if (autonMode == 1) {
+    // Left Side Auton
+    intakeL.spin(fwd, 100, pct);
+    intakeR.spin(fwd, 100, pct);
+    moveStraight(10, 30);
+  } else if (autonMode == 2) {
+    // Right Side Auton
+    intakeL.spin(fwd, 100, pct);
+    intakeR.spin(fwd, 100, pct);
+    moveStraight(10, 30);
+  } else if (autonMode == 3) {
+    // Skills Auton
+    intakeL.spin(fwd, 100, pct);
+    intakeR.spin(fwd, 100, pct);
+    moveStraight(10, 30);
+  }
 }
 
 /*---------------------------------------------------------------------------*/
@@ -165,91 +180,91 @@ void goToPage(int pageId) {
 void drawOnScreen() {
   //Place code here
 
-  Button newButton;
-  newButton.x = 350;
-  newButton.y = 200;
-  newButton.width = 140;
-  newButton.height = 60;
-  newButton.callback = goToPage;
-  newButton.param = 0;
+  Button returnButton1;
+  returnButton1.x = 350;
+  returnButton1.y = 200;
+  returnButton1.width = 140;
+  returnButton1.height = 60;
+  returnButton1.callback = goToPage;
+  returnButton1.param = 0;
   char newText[20] = "Return";
-  strcpy(newButton.text, newText);
-  newButton.color = 0xff0000;
-  brainDisplay.createButton(2,0, newButton);
+  strcpy(returnButton1.text, newText);
+  returnButton1.color = 0xff0000;
+  brainDisplay.createButton(2,0, returnButton1);
   brainDisplay.addImage(2);
 
-  Button newButton2;
-  newButton2.x = 40;
-  newButton2.y = 60;
-  newButton2.width = 140;
-  newButton2.height = 60;
-  newButton2.callback = setAuton;
-  newButton2.param = 3;
+  Button skillsAutonButton;
+  skillsAutonButton.x = 40;
+  skillsAutonButton.y = 60;
+  skillsAutonButton.width = 140;
+  skillsAutonButton.height = 60;
+  skillsAutonButton.callback = setAuton;     //  setAuton(3);
+  skillsAutonButton.param = 3;
   char newText2[20] = "Skills Auton";
-  strcpy(newButton2.text, newText2);
-  newButton2.color = 0x04cc33;
-  brainDisplay.createButton(1,0, newButton2);
+  strcpy(skillsAutonButton.text, newText2);
+  skillsAutonButton.color = 0x04cc33;
+  brainDisplay.createButton(1,0, skillsAutonButton);
 
-  Button newButton3;
-  newButton3.x = 40;
-  newButton3.y = 160;
-  newButton3.width = 140;
-  newButton3.height = 60;
-  newButton3.callback = goToPage;
-  newButton3.param = 0;
+  Button returnButton2;
+  returnButton2.x = 40;
+  returnButton2.y = 160;
+  returnButton2.width = 140;
+  returnButton2.height = 60;
+  returnButton2.callback = goToPage;
+  returnButton2.param = 0;
   char newText3[20] = "Return";
-  strcpy(newButton3.text, newText3);
-  newButton3.color = 0xff0000;
-  brainDisplay.createButton(1,1, newButton3);
+  strcpy(returnButton2.text, newText3);
+  returnButton2.color = 0xff0000;
+  brainDisplay.createButton(1,1, returnButton2);
 
-  Button newButton4;
-  newButton4.x = 300;
-  newButton4.y = 60;
-  newButton4.width = 140;
-  newButton4.height = 60;
-  newButton4.callback = setAuton;
-  newButton4.param = 1;
+  Button leftSideButton;
+  leftSideButton.x = 300;
+  leftSideButton.y = 60;
+  leftSideButton.width = 140;
+  leftSideButton.height = 60;
+  leftSideButton.callback = setAuton;
+  leftSideButton.param = 1;
   char newText4[20] = "Left Side";
-  strcpy(newButton4.text, newText4);
-  newButton4.color = 0x02749e;
-  brainDisplay.createButton(1,2, newButton4);
+  strcpy(leftSideButton.text, newText4);
+  leftSideButton.color = 0x02749e;
+  brainDisplay.createButton(1,2, leftSideButton);
 
-  Button newButton5;
-  newButton5.x = 300;
-  newButton5.y = 160;
-  newButton5.width = 140;
-  newButton5.height = 60;
-  newButton5.callback = setAuton;
-  newButton5.param = 2;
+  Button rightSideButton;
+  rightSideButton.x = 300;
+  rightSideButton.y = 160;
+  rightSideButton.width = 140;
+  rightSideButton.height = 60;
+  rightSideButton.callback = setAuton;
+  rightSideButton.param = 2;
   char newText5[20] = "Right Side";
-  strcpy(newButton5.text, newText5);
-  newButton5.color = 0x02749e;
-  brainDisplay.createButton(1,3, newButton5);
+  strcpy(rightSideButton.text, newText5);
+  rightSideButton.color = 0x02749e;
+  brainDisplay.createButton(1,3, rightSideButton);
 
-  Button newButton6;
-  newButton6.x = 180;
-  newButton6.y = 160;
-  newButton6.width = 140;
-  newButton6.height = 60;
-  newButton6.callback = goToPage;
-  newButton6.param = 1;
+  Button autonButton;
+  autonButton.x = 180;
+  autonButton.y = 160;
+  autonButton.width = 140;
+  autonButton.height = 60;
+  autonButton.callback = goToPage;
+  autonButton.param = 1;
   char newText6[20] = "Auton";
-  strcpy(newButton6.text, newText6);
-  newButton6.color = 0x02749e;
-  brainDisplay.createButton(0,0, newButton6);
+  strcpy(autonButton.text, newText6);
+  autonButton.color = 0x02749e;
+  brainDisplay.createButton(0,0, autonButton);
   brainDisplay.switchPage(0);
 
-  Button newButton7;
-  newButton7.x = 180;
-  newButton7.y = 60;
-  newButton7.width = 140;
-  newButton7.height = 60;
-  newButton7.callback = goToPage;
-  newButton7.param = 2;
+  Button imageButton;
+  imageButton.x = 180;
+  imageButton.y = 60;
+  imageButton.width = 140;
+  imageButton.height = 60;
+  imageButton.callback = goToPage;
+  imageButton.param = 2;
   char newText7[20] = "Image";
-  strcpy(newButton7.text, newText7);
-  newButton7.color = 0xff0000;
-  brainDisplay.createButton(0,1, newButton7);
+  strcpy(imageButton.text, newText7);
+  imageButton.color = 0xff0000;
+  brainDisplay.createButton(0,1, imageButton);
 
 }
 

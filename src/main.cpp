@@ -117,7 +117,9 @@ void autonomous(void) {
     //moveStraight(48, 40);
     //turnRobot(45, 30);
     //moveStraight(12, 15);
-    spinIntakePush(2500);
+    //spinIntakePush(2500);
+    outakePistons.set(1);
+    moveStraight(-29, 15);
 
   } else if (autonMode == 2) {
     // Right Side Auton

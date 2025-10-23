@@ -55,7 +55,7 @@ void moveStraight(float distance, int speed) {
 void turnRobot(int degrees, int speed) {
   float inchesToTurn = inchPerDeg * degrees;
   int degreesToTurn = degPerInch * inchesToTurn;
-  degreesToTurn = abs(degreesToTurn) - 40; // Adjust for overshooting
+  degreesToTurn = abs(degreesToTurn);
   leftSide.resetPosition();
   rightSide.resetPosition();
   wait(100, vex::timeUnits::msec);
@@ -104,22 +104,22 @@ void autonomous(void) {
   // Insert autonomous user code here
   if (autonMode == 1) {
     // Left Side Auton
-    // intakeL.spin(fwd, 100, pct);
-    // intakeR.spin(fwd, 100, pct);
-    // outake2.spin(fwd, 100, pct);
-    // moveStraight(28, 30);
-    // intakeL.stop(brake);
-    // intakeR.stop(brake);
-    // outake2.stop(brake);
-    // turnRobot(115, 30);
-    //moveStraight(-15, 15);
-    //spinIntakeOutake(3000);
-    //moveStraight(48, 40);
-    //turnRobot(45, 30);
-    //moveStraight(12, 15);
-    //spinIntakePush(2500);
+    intakeL.spin(fwd, 100, pct);
+    intakeR.spin(fwd, 100, pct);
+    outake2.spin(fwd, 100, pct);
+    moveStraight(28, 40);
+    intakeL.stop(brake);
+    intakeR.stop(brake);
+    outake2.stop(brake);
+    turnRobot(165, 30);
+    moveStraight(-13, 40);
+    spinIntakeOutake(3000);
+    moveStraight(44, 60);
+    turnRobot(60, 30);
+    moveStraight(13, 15);
+    spinIntakePush(2500);
     outakePistons.set(1);
-    //moveStraight(-29, 15);
+    moveStraight(-29, 15);
     spinIntakeOutake(10000);
 
   } else if (autonMode == 2) {

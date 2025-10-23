@@ -118,8 +118,8 @@ void autonomous(void) {
     //turnRobot(45, 30);
     //moveStraight(12, 15);
     //spinIntakePush(2500);
-    // outakePistons.set(1);
-    // moveStraight(-29, 15);
+    outakePistons.set(1);
+    //moveStraight(-29, 15);
     spinIntakeOutake(10000);
 
   } else if (autonMode == 2) {

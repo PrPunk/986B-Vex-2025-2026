@@ -21,6 +21,29 @@ float degPerInch = 47.012;
 float inchPerDeg = 0.1069014;
 
 
+void spinIntakeOutake(int msecs) {
+  intakeL.spin(fwd, 100, pct);
+  intakeR.spin(fwd, 100, pct);
+  outake1.spin(fwd, 100, pct);
+  outake2.spin(fwd, 100, pct);
+  wait (msecs, vex::timeUnits::msec);
+  intakeL.stop(brake);
+  intakeR.stop(brake);
+  outake1.stop(brake);
+  outake2.stop(brake);
+}
+
+void spinIntakePush(int msecs) {
+  intakeL.spin(fwd, 100, pct);
+  intakeR.spin(fwd, 100, pct);
+  outake2.spin(fwd, 100, pct);
+  driveTrain.spin(fwd, 5, pct);
+  wait (msecs, vex::timeUnits::msec);
+  intakeL.stop(brake);
+  intakeR.stop(brake);
+  outake2.stop(brake);
+  driveTrain.stop(brake);
+}
 
 void moveStraight(float distance, int speed) {
   int degreesToTurn = degPerInch * distance;
@@ -89,7 +112,13 @@ void autonomous(void) {
     // intakeR.stop(brake);
     // outake2.stop(brake);
     // turnRobot(115, 30);
-    moveStraight(-14, 30);
+    //moveStraight(-15, 15);
+    //spinIntakeOutake(3000);
+    //moveStraight(48, 40);
+    //turnRobot(45, 30);
+    //moveStraight(12, 15);
+    spinIntakePush(2500);
+
   } else if (autonMode == 2) {
     // Right Side Auton
     intakeL.spin(fwd, 100, pct);

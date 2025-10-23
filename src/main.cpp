@@ -15,7 +15,7 @@ BrainDisplay brainDisplay;
 // A global instance of competition
 competition Competition;
 
-int autonMode = 0;
+int autonMode = 1;
 bool intakeOn = false;
 float degPerInch = 47.012;
 float inchPerDeg = 0.1069014;
@@ -81,19 +81,27 @@ void autonomous(void) {
   // Insert autonomous user code here
   if (autonMode == 1) {
     // Left Side Auton
-    intakeL.spin(fwd, 100, pct);
-    intakeR.spin(fwd, 100, pct);
-    moveStraight(10, 30);
+    // intakeL.spin(fwd, 100, pct);
+    // intakeR.spin(fwd, 100, pct);
+    // outake2.spin(fwd, 100, pct);
+    // moveStraight(28, 30);
+    // intakeL.stop(brake);
+    // intakeR.stop(brake);
+    // outake2.stop(brake);
+    // turnRobot(115, 30);
+    moveStraight(-14, 30);
   } else if (autonMode == 2) {
     // Right Side Auton
     intakeL.spin(fwd, 100, pct);
     intakeR.spin(fwd, 100, pct);
-    moveStraight(10, 30);
+    outake2.spin(fwd, 100, pct);
+    moveStraight(28, 30);
   } else if (autonMode == 3) {
     // Skills Auton
     intakeL.spin(fwd, 100, pct);
     intakeR.spin(fwd, 100, pct);
-    moveStraight(10, 30);
+    outake2.spin(fwd, 100, pct);
+    moveStraight(28, 30);//30
   }
 }
 

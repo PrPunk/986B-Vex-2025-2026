@@ -112,10 +112,10 @@ void autonomous(void) {
     intakeR.stop(brake);
     outake2.stop(brake);
     turnRobot(115, 30);
-    moveStraight(-13, 40);
+    moveStraight(-10, 40);
     spinIntakeOutake(3000);
     moveStraight(48, 60);
-    turnRobot(52, 30);
+    turnRobot(51, 30);
     moveStraight(13, 15);
     spinIntakePush(2500);
     outakePistons.set(1);

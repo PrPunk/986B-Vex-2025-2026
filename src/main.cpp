@@ -144,6 +144,8 @@ void autonomous(void) {
     intakeR.spin(fwd, 100, pct);
     outake2.spin(fwd, 100, pct);
     moveStraight(28, 30);//30
+  } else {
+    moveStraight(20, 30);
   }
 }
 

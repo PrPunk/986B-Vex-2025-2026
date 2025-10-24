@@ -118,7 +118,7 @@ void autonomous(void) {
     spinIntake();
     moveStraight(28, 40);
     stopIntake();
-    turnRobot(115, 40);
+    turnRobot(110, 40);
     moveStraight(-13.5, 40);
     spinIntakeOutake(3000);
     moveStraight(46.5, 60);

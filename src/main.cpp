@@ -20,6 +20,17 @@ bool intakeOn = false;
 float degPerInch = 47.012;
 float inchPerDeg = 0.1069014;
 
+void spinIntake() {
+  intakeL.spin(fwd, 100, pct);
+  intakeR.spin(fwd, 100, pct);
+  outake2.spin(fwd, 100, pct);
+}
+
+void stopIntake() {
+  intakeL.stop(brake);
+  intakeR.stop(brake);
+  outake2.stop(brake);
+}
 
 void spinIntakeOutake(int msecs) {
   intakeL.spin(fwd, 100, pct);
@@ -104,13 +115,9 @@ void autonomous(void) {
   // Insert autonomous user code here
   if (autonMode == 1) {
     // Left Side Auton
-    intakeL.spin(fwd, 100, pct);
-    intakeR.spin(fwd, 100, pct);
-    outake2.spin(fwd, 100, pct);
+    spinIntake();
     moveStraight(28, 40);
-    intakeL.stop(brake);
-    intakeR.stop(brake);
-    outake2.stop(brake);
+    stopIntake();
     turnRobot(165, 30);
     moveStraight(-13, 40);
     spinIntakeOutake(3000);
@@ -124,10 +131,13 @@ void autonomous(void) {
 
   } else if (autonMode == 2) {
     // Right Side Auton
-    intakeL.spin(fwd, 100, pct);
-    intakeR.spin(fwd, 100, pct);
-    outake2.spin(fwd, 100, pct);
-    moveStraight(28, 30);
+    moveStraight(33, 30);
+    turnRobot(-90, 30);
+    moveStraight(13, 15);
+    spinIntakePush(2500);
+    outakePistons.set(1);
+    moveStraight(-29, 15);
+    spinIntakeOutake(10000);
   } else if (autonMode == 3) {
     // Skills Auton
     intakeL.spin(fwd, 100, pct);

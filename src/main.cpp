@@ -116,7 +116,7 @@ void autonomous(void) {
   if (autonMode == 1) {
     // Left Side Auton
     spinIntake();
-    moveStraight(28, 40);
+    moveStraight(27, 40);
     stopIntake();
     turnRobot(110, 40);
     moveStraight(-13.5, 40);

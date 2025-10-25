@@ -58,9 +58,30 @@ void spinIntakePush(int msecs) {
 
 void moveStraight(float distance, int speed) {
   int degreesToTurn = degPerInch * distance;
-  driveTrain.resetPosition();
+  // driveTrain.resetPosition();
+  // wait(100, vex::timeUnits::msec);
+  // driveTrain.spinToPosition(degreesToTurn, deg, speed, vex::velocityUnits::pct);
+  // driveTrain.stop(brake);
+  leftSide.resetPosition();
+  rightSide.resetPosition();
   wait(100, vex::timeUnits::msec);
-  driveTrain.spinToPosition(degreesToTurn, deg, speed, vex::velocityUnits::pct);
+  if (distance > 0) {
+    // Move Forward
+    while (leftSide.position(deg) <= degreesToTurn && rightSide.position(deg) <= degreesToTurn) {
+      leftSide.spin(fwd, speed, pct);
+      rightSide.spin(fwd, speed, pct);
+    }
+    leftSide.stop(brake);
+    rightSide.stop(brake);
+  } else if (distance < 0) {
+    // Turn clockwise
+    while (leftSide.position(deg) >= degreesToTurn && rightSide.position(deg) >= degreesToTurn) {
+      leftSide.spin(fwd, -speed, pct);
+      rightSide.spin(fwd, -speed, pct);
+    }
+    leftSide.stop(brake);
+    rightSide.stop(brake);
+  };
 }
 
 void turnRobot(int degrees, int speed) {
@@ -116,13 +137,13 @@ void autonomous(void) {
   if (autonMode == 1) {
     // Left Side Auton
     spinIntake();
-    moveStraight(29, 40);
+    moveStraight(28, 30);
     stopIntake();
     turnRobot(115, 30);
-    moveStraight(-10, 35);
+    moveStraight(-13, 25);
     spinIntakeOutake(3000);
-    moveStraight(46.5, 60);
-    turnRobot(50, 20);
+    moveStraight(46, 60);
+    turnRobot(48, 20);
     moveStraight(17, 20);
     spinIntakePush(2500);
     outakePistons.set(1);

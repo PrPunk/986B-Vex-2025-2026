@@ -15,7 +15,7 @@ BrainDisplay brainDisplay;
 // A global instance of competition
 competition Competition;
 
-int autonMode = 2;
+int autonMode = 1;
 bool intakeOn = false;
 float degPerInch = 47.012;
 float inchPerDeg = 0.1069014;
@@ -48,7 +48,7 @@ void spinIntakePush(int msecs) {
   intakeL.spin(fwd, 100, pct);
   intakeR.spin(fwd, 100, pct);
   outake2.spin(fwd, 100, pct);
-  driveTrain.spin(fwd, 5, pct);
+  driveTrain.spin(fwd, 10, pct);
   wait (msecs, vex::timeUnits::msec);
   intakeL.stop(brake);
   intakeR.stop(brake);
@@ -116,17 +116,17 @@ void autonomous(void) {
   if (autonMode == 1) {
     // Left Side Auton
     spinIntake();
-    moveStraight(27, 40);
+    moveStraight(29, 40);
     stopIntake();
     turnRobot(115, 30);
-    moveStraight(-13.5, 40);
+    moveStraight(-12, 35);
     spinIntakeOutake(3000);
     moveStraight(46.5, 60);
     turnRobot(50, 20);
-    moveStraight(13, 15);
+    moveStraight(17, 20);
     spinIntakePush(2500);
     outakePistons.set(1);
-    moveStraight(-29, 15);
+    moveStraight(-29, 20);
     spinIntakeOutake(10000);
 
   } else if (autonMode == 2) {

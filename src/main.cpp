@@ -153,13 +153,13 @@ void autonomous(void) {
   } else if (autonMode == 2) {
     // Right Side Auton
     spinIntake();
-    moveStraight(33, 30);
+    moveStraight(32.25, 30);
     stopIntake();
     turnRobot(-91, 30);
     outakePistons.set(1);
-    moveStraight(-16.5, 20);
+    moveStraight(-17, 20);
     spinIntakeOutake(1500);
-    moveStraight(29, 15);
+    moveStraight(28.5, 15);
     spinIntakePush(3000);
     moveStraight(-29, 15);
     spinIntakeOutake(10000);

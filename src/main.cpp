@@ -137,13 +137,13 @@ void autonomous(void) {
   if (autonMode == 1) {
     // Left Side Auton
     spinIntake();
-    moveStraight(28, 30);
+    moveStraight(27.5, 30);
     stopIntake();
-    turnRobot(115, 30);
+    turnRobot(117, 30);
     moveStraight(-13, 25);
     spinIntakeOutake(3000);
-    moveStraight(46, 60);
-    turnRobot(48, 20);
+    moveStraight(46.5, 60);
+    turnRobot(55, 20);
     moveStraight(17, 20);
     spinIntakePush(2500);
     outakePistons.set(1);
@@ -153,15 +153,15 @@ void autonomous(void) {
   } else if (autonMode == 2) {
     // Right Side Auton
     spinIntake();
-    moveStraight(32.25, 30);
+    moveStraight(30, 30);
     stopIntake();
     turnRobot(-91, 30);
     outakePistons.set(1);
-    moveStraight(-17, 20);
+    moveStraight(-18.5, 20);
     spinIntakeOutake(1500);
     moveStraight(28.5, 15);
-    spinIntakePush(3000);
-    moveStraight(-29, 15);
+    spinIntakePush(2500);
+    moveStraight(-28, 15);
     spinIntakeOutake(10000);
   } else if (autonMode == 3) {
     // Skills Auton

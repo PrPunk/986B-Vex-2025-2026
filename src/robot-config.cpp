@@ -26,6 +26,7 @@ motor_group rightSide = motor_group(R1, R2, R3);
 motor_group driveTrain = motor_group(L1, L2, L3, R1, R2, R3);
 
 digital_out outakePistons(Brain.ThreeWirePort.B);
+digital_out intakePistons(Brain.ThreeWirePort.G);
 digital_out pnu2(Brain.ThreeWirePort.C);
 // VEXcode generated functions
 

@@ -16,6 +16,7 @@ extern motor intakeR;
 extern motor outake1;
 extern motor outake2;
 extern digital_out outakePistons;
+extern digital_out intakePistons;
 extern digital_out pnu2;
 
 extern motor_group leftSide;

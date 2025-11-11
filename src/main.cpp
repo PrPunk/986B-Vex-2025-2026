@@ -233,6 +233,12 @@ void usercontrol(void) {
       outakePistons.set(1);
     }
 
+    if (CT1.ButtonX.pressing()) {
+      intakePistons.set(0);
+    } else if (CT1.ButtonY.pressing()) {
+      intakePistons.set(1);
+    }
+
     // Eliminates the judges if they give a bad score for our robot.
     if (CT1.ButtonLeft.pressing()) {
       pnu2.set(1);

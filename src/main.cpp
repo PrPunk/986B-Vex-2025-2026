@@ -22,36 +22,36 @@ float inchPerDeg = 0.1069014;
 
 void spinIntake() {
   intakeL.spin(fwd, 100, pct);
-  intakeR.spin(fwd, 100, pct);
+  // intakeR.spin(fwd, 100, pct);
   outake2.spin(fwd, 100, pct);
 }
 
 void stopIntake() {
   intakeL.stop(brake);
-  intakeR.stop(brake);
+  // intakeR.stop(brake);
   outake2.stop(brake);
 }
 
 void spinIntakeOutake(int msecs) {
   intakeL.spin(fwd, 100, pct);
-  intakeR.spin(fwd, 100, pct);
+  // intakeR.spin(fwd, 100, pct);
   outake1.spin(fwd, 100, pct);
   outake2.spin(fwd, 100, pct);
   wait (msecs, vex::timeUnits::msec);
   intakeL.stop(brake);
-  intakeR.stop(brake);
+  // intakeR.stop(brake);
   outake1.stop(brake);
   outake2.stop(brake);
 }
 
 void spinIntakePush(int msecs) {
   intakeL.spin(fwd, 100, pct);
-  intakeR.spin(fwd, 100, pct);
+  // intakeR.spin(fwd, 100, pct);
   outake2.spin(fwd, 100, pct);
   driveTrain.spin(fwd, 10, pct);
   wait (msecs, vex::timeUnits::msec);
   intakeL.stop(brake);
-  intakeR.stop(brake);
+  // intakeR.stop(brake);
   outake2.stop(brake);
   driveTrain.stop(brake);
 }
@@ -208,7 +208,7 @@ void usercontrol(void) {
       // Starts sucking in for the intake
       // Starts spitting out for outake
       intakeL.spin(fwd, 100, pct);
-      intakeR.spin(fwd, 100, pct);
+      // intakeR.spin(fwd, 100, pct);
       outake1.spin(fwd, 100, pct);
       outake2.spin(fwd, 100, pct);
       intakeOn = true;
@@ -216,13 +216,13 @@ void usercontrol(void) {
       // Stops sucking in and starts spitting out for intake
       // Stops spitting out and start sucking in for outake
       intakeL.spin(fwd, -100, pct);
-      intakeR.spin(fwd, -100, pct);
+      // intakeR.spin(fwd, -100, pct);
       outake1.spin(fwd, -100, pct);
       outake2.spin(fwd, -100, pct);
       intakeOn = false;
     } else if (!intakeOn) {
       intakeL.stop(coast);
-      intakeR.stop(coast);
+      // intakeR.stop(coast);
       outake1.stop(coast);
       outake2.stop(coast);
     }

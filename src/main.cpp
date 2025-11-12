@@ -233,9 +233,9 @@ void usercontrol(void) {
       outakePistons.set(1);
     }
 
-    if (CT1.ButtonX.pressing()) {
+    if (CT1.ButtonB.pressing()) {
       intakePistons.set(0);
-    } else if (CT1.ButtonY.pressing()) {
+    } else if (CT1.ButtonX.pressing()) {
       intakePistons.set(1);
     }
 

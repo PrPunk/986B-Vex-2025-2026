@@ -15,6 +15,7 @@ extern motor intakeL;
 // extern motor intakeR;
 extern motor outake1;
 extern motor outake2;
+extern motor outake3;
 extern digital_out outakePistons;
 extern digital_out intakePistons;
 extern digital_out pnu2;

@@ -15,7 +15,7 @@ BrainDisplay brainDisplay;
 // A global instance of competition
 competition Competition;
 
-int autonMode = 2;
+int autonMode = 1;
 bool intakeOn = false;
 float degPerInch = 47.012;
 float inchPerDeg = 0.1069014;
@@ -37,11 +37,23 @@ void spinIntakeOutake(int msecs) {
   // intakeR.spin(fwd, 100, pct);
   outake1.spin(fwd, 100, pct);
   outake2.spin(fwd, 100, pct);
+  outake3.spin(fwd, 100, pct);
   wait (msecs, vex::timeUnits::msec);
   intakeL.stop(brake);
   // intakeR.stop(brake);
   outake1.stop(brake);
   outake2.stop(brake);
+  outake3.stop(brake);
+}
+
+void reverseOutake(int msecs) {
+  outake1.spin(fwd, -100, pct);
+  outake2.spin(fwd, -100, pct);
+  outake3.spin(fwd, -100, pct);
+  wait (msecs, vex::timeUnits::msec);
+  outake1.stop(brake);
+  outake2.stop(brake);
+  outake3.stop(brake);
 }
 
 void spinIntakePush(int msecs) {
@@ -81,7 +93,13 @@ void moveStraight(float distance, int speed) {
     }
     leftSide.stop(brake);
     rightSide.stop(brake);
-  };
+  }
+}
+
+void moveTime(float seconds, int speed) {
+  driveTrain.spin(fwd, speed, pct);
+  wait(seconds * 1000, vex::timeUnits::msec);
+  driveTrain.stop(brake);
 }
 
 void turnRobot(int degrees, int speed) {
@@ -136,32 +154,58 @@ void autonomous(void) {
   // Insert autonomous user code here
   if (autonMode == 1) {
     // Left Side Auton
+    // spinIntake();
+    // intakePistons.set(1);
+    // moveStraight(27.5, 30);
+    // stopIntake();
+    // intakePistons.set(0);
+    // turnRobot(117, 30);
+    // moveStraight(-13, 25);
+    // spinIntakeOutake(3000);
+    // moveStraight(46.5, 60);
+    // turnRobot(55, 20);
+    // intakePistons.set(1);
+    // moveStraight(17, 20);
+    // spinIntakePush(2500);
+    // outakePistons.set(1);
+    // moveStraight(-29, 20);
+    // spinIntakeOutake(10000);
     spinIntake();
-    moveStraight(27.5, 30);
+    moveStraight(33.25, 30);
     stopIntake();
-    turnRobot(117, 30);
-    moveStraight(-13, 25);
-    spinIntakeOutake(3000);
-    moveStraight(46.5, 60);
-    turnRobot(55, 20);
-    moveStraight(17, 20);
-    spinIntakePush(2500);
+    turnRobot(91, 30);
     outakePistons.set(1);
-    moveStraight(-29, 20);
+    moveStraight(-19, 20);
+    spinIntakeOutake(1500);
+    intakePistons.set(1);
+    //moveStraight(27, 15);
+    moveTime(1, 25);
+    spinIntakePush(2500);
+    moveStraight(-15, 15);
+    intakePistons.set(0);
+    moveTime(2, -15);
+    spinIntakeOutake(1500);
+    reverseOutake(300);
     spinIntakeOutake(10000);
 
   } else if (autonMode == 2) {
     // Right Side Auton
     spinIntake();
-    moveStraight(30, 30);
+    moveStraight(33, 30);
     stopIntake();
     turnRobot(-91, 30);
     outakePistons.set(1);
-    moveStraight(-18.5, 20);
+    moveStraight(-19, 20);
     spinIntakeOutake(1500);
-    moveStraight(28.5, 15);
+    intakePistons.set(1);
+    //moveStraight(27, 15);
+    moveTime(1, 25);
     spinIntakePush(2500);
-    moveStraight(-28, 15);
+    moveStraight(-15, 15);
+    intakePistons.set(0);
+    moveTime(2, -15);
+    spinIntakeOutake(1500);
+    reverseOutake(300);
     spinIntakeOutake(10000);
   } else if (autonMode == 3) {
     // Skills Auton

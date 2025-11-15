@@ -15,7 +15,7 @@ BrainDisplay brainDisplay;
 // A global instance of competition
 competition Competition;
 
-int autonMode = 1;
+int autonMode = 0;
 bool intakeOn = false;
 float degPerInch = 47.012;
 float inchPerDeg = 0.1069014;

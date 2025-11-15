@@ -255,6 +255,7 @@ void usercontrol(void) {
       // intakeR.spin(fwd, 100, pct);
       outake1.spin(fwd, 100, pct);
       outake2.spin(fwd, 100, pct);
+      outake3.spin(fwd, 100, pct);
       intakeOn = true;
     } else if (CT1.ButtonR1.pressing()) {
       // Stops sucking in and starts spitting out for intake
@@ -263,12 +264,14 @@ void usercontrol(void) {
       // intakeR.spin(fwd, -100, pct);
       outake1.spin(fwd, -100, pct);
       outake2.spin(fwd, -100, pct);
+      outake3.spin(fwd, -100, pct);
       intakeOn = false;
     } else if (!intakeOn) {
       intakeL.stop(coast);
       // intakeR.stop(coast);
       outake1.stop(coast);
       outake2.stop(coast);
+      outake3.stop(coast);
     }
 
     if (CT1.ButtonDown.pressing()) {

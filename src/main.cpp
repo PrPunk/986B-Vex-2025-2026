@@ -46,6 +46,18 @@ void spinIntakeOutake(int msecs) {
   outake3.stop(brake);
 }
 
+void reverseOutakeIntake(int msecs) {
+  intakeL.spin(fwd, -100, pct);
+  outake1.spin(fwd, -100, pct);
+  outake2.spin(fwd, -100, pct);
+  outake3.spin(fwd, -100, pct);
+  wait (msecs, vex::timeUnits::msec);
+  intakeL.stop(brake);
+  outake1.stop(brake);
+  outake2.stop(brake);
+  outake3.stop(brake);
+}
+
 void reverseOutake(int msecs) {
   outake1.spin(fwd, -100, pct);
   outake2.spin(fwd, -100, pct);
@@ -154,22 +166,6 @@ void autonomous(void) {
   // Insert autonomous user code here
   if (autonMode == 1) {
     // Left Side Auton
-    // spinIntake();
-    // intakePistons.set(1);
-    // moveStraight(27.5, 30);
-    // stopIntake();
-    // intakePistons.set(0);
-    // turnRobot(117, 30);
-    // moveStraight(-13, 25);
-    // spinIntakeOutake(3000);
-    // moveStraight(46.5, 60);
-    // turnRobot(55, 20);
-    // intakePistons.set(1);
-    // moveStraight(17, 20);
-    // spinIntakePush(2500);
-    // outakePistons.set(1);
-    // moveStraight(-29, 20);
-    // spinIntakeOutake(10000);
     spinIntake();
     moveStraight(33.25, 30);
     stopIntake();
@@ -190,23 +186,34 @@ void autonomous(void) {
 
   } else if (autonMode == 2) {
     // Right Side Auton
+    // spinIntake();
+    // moveStraight(33, 30);
+    // stopIntake();
+    // turnRobot(-91, 30);
+    // outakePistons.set(1);
+    // moveStraight(-19, 20);
+    // spinIntakeOutake(1500);
+    // intakePistons.set(1);
+    // //moveStraight(27, 15);
+    // moveTime(1, 25);
+    // spinIntakePush(2500);
+    // moveStraight(-15, 15);
+    // intakePistons.set(0);
+    // moveTime(2, -15);
+    // spinIntakeOutake(1500);
+    // reverseOutake(300);
+    // spinIntakeOutake(10000);
+
     spinIntake();
-    moveStraight(33, 30);
+    moveStraight(8.5, 20);
+    turnRobot(90, 30);
+    moveStraight(27, 25);
+    turnRobot(38, 25);
     stopIntake();
-    turnRobot(-91, 30);
-    outakePistons.set(1);
-    moveStraight(-19, 20);
-    spinIntakeOutake(1500);
-    intakePistons.set(1);
-    //moveStraight(27, 15);
-    moveTime(1, 25);
-    spinIntakePush(2500);
-    moveStraight(-15, 15);
-    intakePistons.set(0);
-    moveTime(2, -15);
-    spinIntakeOutake(1500);
-    reverseOutake(300);
-    spinIntakeOutake(10000);
+    moveStraight(12, 20);
+    reverseOutakeIntake(2000);
+    moveStraight(-42, 50);
+    turnRobot(135, 30);
   } else if (autonMode == 3) {
     // Skills Auton
     spinIntake();

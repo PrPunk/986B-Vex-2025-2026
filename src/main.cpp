@@ -258,8 +258,8 @@ void usercontrol(void) {
       R2.spin(fwd, (CT1.Axis3.value()/1.270), pct);
       R3.spin(fwd, (CT1.Axis3.value()/1.270), pct);
     } else {
-      leftVeloc *= CT1.Axis2.value()/2;
-      rightVeloc *= CT1.Axis3.value()/2;
+      leftVeloc += CT1.Axis2.value()/5;
+      rightVeloc += CT1.Axis3.value()/5;
       leftVeloc /= 2;
       rightVeloc /= 2;
       L1.spin(fwd, leftVeloc, pct);

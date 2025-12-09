@@ -15,6 +15,9 @@ BrainDisplay brainDisplay;
 // A global instance of competition
 competition Competition;
 
+bool slowDrive = false;
+int leftVeloc = 0;
+int rightVeloc = 0;
 int autonMode = 0;
 bool intakeOn = false;
 float degPerInch = 47.012;
@@ -246,13 +249,27 @@ void usercontrol(void) {
   // User control code here, inside the loop
   while (1) {
 
-    // Tank drive controls
-    L1.spin(fwd, (CT1.Axis2.value()/1.270), pct);
-    L2.spin(fwd, (CT1.Axis2.value()/1.270), pct);
-    L3.spin(fwd, (CT1.Axis2.value()/1.270), pct);
-    R1.spin(fwd, (CT1.Axis3.value()/1.270), pct);
-    R2.spin(fwd, (CT1.Axis3.value()/1.270), pct);
-    R3.spin(fwd, (CT1.Axis3.value()/1.270), pct);
+    if (!slowDrive) {
+      // Tank drive controls
+      L1.spin(fwd, (CT1.Axis2.value()/1.270), pct);
+      L2.spin(fwd, (CT1.Axis2.value()/1.270), pct);
+      L3.spin(fwd, (CT1.Axis2.value()/1.270), pct);
+      R1.spin(fwd, (CT1.Axis3.value()/1.270), pct);
+      R2.spin(fwd, (CT1.Axis3.value()/1.270), pct);
+      R3.spin(fwd, (CT1.Axis3.value()/1.270), pct);
+    } else {
+      leftVeloc *= CT1.Axis2.value()/2;
+      rightVeloc *= CT1.Axis3.value()/2;
+      leftVeloc /= 2;
+      rightVeloc /= 2;
+      L1.spin(fwd, leftVeloc, pct);
+      L2.spin(fwd, leftVeloc, pct);
+      L3.spin(fwd, leftVeloc, pct);
+      R1.spin(fwd, rightVeloc, pct);
+      R2.spin(fwd, rightVeloc, pct);
+      R3.spin(fwd, rightVeloc, pct);
+    }
+    
     
     // Intake and outake controls
     if (CT1.ButtonR2.pressing()) {
@@ -298,6 +315,18 @@ void usercontrol(void) {
       pnu2.set(1);
     } else {
       pnu2.set(0);
+    }
+
+    if (CT1.ButtonY.pressing()) {
+      descoreArm.set(true);
+    } else {
+      descoreArm.set(false);
+    }
+
+    if (CT1.ButtonY.pressing() && CT1.ButtonB.pressing()) {
+      slowDrive = true;
+    } else if (CT1.ButtonY.pressing() && CT1.ButtonX.pressing()) {
+      slowDrive = false;
     }
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo

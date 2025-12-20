@@ -15,13 +15,24 @@ BrainDisplay brainDisplay;
 // A global instance of competition
 competition Competition;
 
+vex::timer accelTimer;
+
+const int accelStep = 10;
+const int accelSec = 300;
+
 bool slowDrive = false;
-int leftVeloc = 0;
-int rightVeloc = 0;
+double leftVeloc = 0;
+double rightVeloc = 0;
 int autonMode = 0;
 bool intakeOn = false;
 float degPerInch = 47.012;
 float inchPerDeg = 0.1069014;
+
+
+int sign(int x) {
+  return (x > 0) - (x < 0);
+}
+
 
 void spinIntake() {
   intakeL.spin(fwd, 100, pct);
@@ -258,6 +269,35 @@ void usercontrol(void) {
       R2.spin(fwd, (CT1.Axis3.value()/1.270), pct);
       R3.spin(fwd, (CT1.Axis3.value()/1.270), pct);
     } else {
+      //printf("%d, %d\n", CT1.Axis2.value(), CT1.Axis3.value()); 127 to -127
+      
+      if (accelTimer.time(vex::timeUnits::msec) >= accelStep) {
+        accelTimer.reset();
+        //printf("%d, %d\n", CT1.Axis3.value(), CT1.Axis2.value());
+        // 1. Joystick → target velocity (%)
+        int leftTarget  = CT1.Axis2.value() * 100 / 127;
+        int rightTarget = CT1.Axis3.value() * 100 / 127;
+        // 2. Max velocity change per loop
+        double accelMax = double(accelSec) * double(accelStep) / 1000.000;
+        // 3. Ramp LEFT
+        int leftError = leftTarget - leftVeloc;
+        if (abs(leftError) > accelMax) {
+          leftVeloc += double(sign(leftError)) * accelMax;
+        } else {
+          leftVeloc = leftTarget;
+        }
+        // 4. Ramp RIGHT
+        int rightError = rightTarget - rightVeloc;
+        if (abs(rightError) > accelMax) {
+          rightVeloc += double(sign(rightError)) * accelMax;
+        } else {
+          rightVeloc = rightTarget;
+        }
+        printf("%f\n", accelMax);
+        // 5. Send to motors
+        leftSide.spin(fwd, int(leftVeloc), pct);
+        rightSide.spin(fwd, int(rightVeloc), pct);
+      }
       // leftVeloc += CT1.Axis2.value()/5;
       // rightVeloc += CT1.Axis3.value()/5;
       // leftVeloc /= 1.2;
@@ -268,6 +308,7 @@ void usercontrol(void) {
       // R1.spin(fwd, rightVeloc, pct);
       // R2.spin(fwd, rightVeloc, pct);
       // R3.spin(fwd, rightVeloc, pct);
+      
     }
     
     

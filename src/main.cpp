@@ -258,16 +258,16 @@ void usercontrol(void) {
       R2.spin(fwd, (CT1.Axis3.value()/1.270), pct);
       R3.spin(fwd, (CT1.Axis3.value()/1.270), pct);
     } else {
-      leftVeloc += CT1.Axis2.value()/5;
-      rightVeloc += CT1.Axis3.value()/5;
-      leftVeloc /= 1.2;
-      rightVeloc /= 1.2;
-      L1.spin(fwd, leftVeloc, pct);
-      L2.spin(fwd, leftVeloc, pct);
-      L3.spin(fwd, leftVeloc, pct);
-      R1.spin(fwd, rightVeloc, pct);
-      R2.spin(fwd, rightVeloc, pct);
-      R3.spin(fwd, rightVeloc, pct);
+      // leftVeloc += CT1.Axis2.value()/5;
+      // rightVeloc += CT1.Axis3.value()/5;
+      // leftVeloc /= 1.2;
+      // rightVeloc /= 1.2;
+      // L1.spin(fwd, leftVeloc, pct);
+      // L2.spin(fwd, leftVeloc, pct);
+      // L3.spin(fwd, leftVeloc, pct);
+      // R1.spin(fwd, rightVeloc, pct);
+      // R2.spin(fwd, rightVeloc, pct);
+      // R3.spin(fwd, rightVeloc, pct);
     }
     
     

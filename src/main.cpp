@@ -20,6 +20,7 @@ vex::timer accelTimer;
 const int accelStep = 10;
 const int accelSec = 300;
 
+float dSpeed = 1;
 bool slowDrive = false;
 double leftVeloc = 0;
 double rightVeloc = 0;
@@ -33,6 +34,9 @@ int sign(int x) {
   return (x > 0) - (x < 0);
 }
 
+float accelSpeed(int speed) {
+  return speed/20 + 100;
+}
 
 void spinIntake() {
   intakeL.spin(fwd, 100, pct);
@@ -262,42 +266,47 @@ void usercontrol(void) {
 
     if (!slowDrive) {
       // Tank drive controls
-      L1.spin(fwd, (CT1.Axis2.value()/1.270), pct);
-      L2.spin(fwd, (CT1.Axis2.value()/1.270), pct);
-      L3.spin(fwd, (CT1.Axis2.value()/1.270), pct);
-      R1.spin(fwd, (CT1.Axis3.value()/1.270), pct);
-      R2.spin(fwd, (CT1.Axis3.value()/1.270), pct);
-      R3.spin(fwd, (CT1.Axis3.value()/1.270), pct);
+      L1.spin(fwd, (CT1.Axis2.value()*dSpeed/1.270), pct);
+      L2.spin(fwd, (CT1.Axis2.value()*dSpeed/1.270), pct);
+      L3.spin(fwd, (CT1.Axis2.value()*dSpeed/1.270), pct);
+      R1.spin(fwd, (CT1.Axis3.value()*dSpeed/1.270), pct);
+      R2.spin(fwd, (CT1.Axis3.value()*dSpeed/1.270), pct);
+      R3.spin(fwd, (CT1.Axis3.value()*dSpeed/1.270), pct);
     } else {
       //printf("%d, %d\n", CT1.Axis2.value(), CT1.Axis3.value()); 127 to -127
       
       if (accelTimer.time(vex::timeUnits::msec) >= accelStep) {
         accelTimer.reset();
-        //printf("%d, %d\n", CT1.Axis3.value(), CT1.Axis2.value());
-        // 1. Joystick → target velocity (%)
+
         int leftTarget  = CT1.Axis2.value() * 100 / 127;
         int rightTarget = CT1.Axis3.value() * 100 / 127;
-        // 2. Max velocity change per loop
-        double accelMax = double(accelSec) * double(accelStep) / 1000.000;
-        // 3. Ramp LEFT
+
+        // Time step in seconds
+        float dt = accelStep / 1000.0f;
+        
+        // Get acceleration based on current speed
+        float leftAccelMax  = accelSpeed(leftVeloc)  * dt;
+        float rightAccelMax = accelSpeed(rightVeloc) * dt;
+        // Ramp LEFT
         int leftError = leftTarget - leftVeloc;
-        if (abs(leftError) > accelMax) {
-          leftVeloc += double(sign(leftError)) * accelMax;
+        if (abs(leftError) > leftAccelMax) {
+          leftVeloc += sign(leftError) * leftAccelMax;
         } else {
           leftVeloc = leftTarget;
         }
-        // 4. Ramp RIGHT
+
+        // Ramp RIGHT
         int rightError = rightTarget - rightVeloc;
-        if (abs(rightError) > accelMax) {
-          rightVeloc += double(sign(rightError)) * accelMax;
+        if (abs(rightError) > rightAccelMax) {
+          rightVeloc += sign(rightError) * rightAccelMax;
         } else {
           rightVeloc = rightTarget;
         }
-        printf("%f\n", accelMax);
-        // 5. Send to motors
+
         leftSide.spin(fwd, int(leftVeloc), pct);
         rightSide.spin(fwd, int(rightVeloc), pct);
       }
+
       // leftVeloc += CT1.Axis2.value()/5;
       // rightVeloc += CT1.Axis3.value()/5;
       // leftVeloc /= 1.2;
@@ -353,15 +362,15 @@ void usercontrol(void) {
 
     // Eliminates the judges if they give a bad score for our robot.
     if (CT1.ButtonLeft.pressing()) {
-      pnu2.set(1);
-    } else {
-      pnu2.set(0);
+      descoreArm.set(true);
+    } else if (CT1.ButtonRight.pressing()) {
+      descoreArm.set(false);
     }
 
-    if (CT1.ButtonY.pressing()) {
-      descoreArm.set(true);
+    if (CT1.ButtonL2.pressing()) {
+      dSpeed = 0.3;
     } else {
-      descoreArm.set(false);
+      dSpeed = 1;
     }
 
     if (CT1.ButtonY.pressing() && CT1.ButtonB.pressing()) {

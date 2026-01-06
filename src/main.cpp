@@ -208,12 +208,22 @@ void autonomous(void) {
     moveStraight(8.5, 20);
     turnRobot(90, 30);
     moveStraight(27, 25);
-    turnRobot(38, 25);
+    turnRobot(39, 25);
     stopIntake();
-    moveStraight(12, 20);
+    moveStraight(13, 20);
     reverseOutakeIntake(2000);
-    moveStraight(-42, 50);
-    turnRobot(135, 30);
+    moveStraight(-43, 50);
+    turnRobot(171, 30);
+    intakePistons.set(1);
+    moveStraight(14, 20);
+    spinIntakePush(2500);
+    moveStraight(-15, 15);
+    intakePistons.set(0);
+    outakePistons.set(1);
+    moveTime(2, -15);
+    spinIntakeOutake(1500);
+    reverseOutake(300);
+    spinIntakeOutake(10000);
   } else if (autonMode == 3) {
     // Skills Auton
     spinIntake();

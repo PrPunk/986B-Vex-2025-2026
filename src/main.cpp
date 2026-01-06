@@ -372,9 +372,9 @@ void usercontrol(void) {
 
     // Eliminates the judges if they give a bad score for our robot.
     if (CT1.ButtonLeft.pressing()) {
-      descoreArm.set(true);
+      descoreArm.set(1);
     } else if (CT1.ButtonRight.pressing()) {
-      descoreArm.set(false);
+      descoreArm.set(0);
     }
 
     if (CT1.ButtonL2.pressing()) {

@@ -15,10 +15,28 @@ BrainDisplay brainDisplay;
 // A global instance of competition
 competition Competition;
 
+vex::timer accelTimer;
+
+const int accelStep = 10;
+const int accelSec = 300;
+
+float dSpeed = 1;
+bool slowDrive = false;
+double leftVeloc = 0;
+double rightVeloc = 0;
 int autonMode = 0;
 bool intakeOn = false;
 float degPerInch = 47.012;
 float inchPerDeg = 0.1069014;
+
+
+int sign(int x) {
+  return (x > 0) - (x < 0);
+}
+
+float accelSpeed(int speed) {
+  return speed/20 + 100;
+}
 
 void spinIntake() {
   intakeL.spin(fwd, 100, pct);
@@ -256,13 +274,62 @@ void usercontrol(void) {
   // User control code here, inside the loop
   while (1) {
 
-    // Tank drive controls
-    L1.spin(fwd, (CT1.Axis2.value()/1.270), pct);
-    L2.spin(fwd, (CT1.Axis2.value()/1.270), pct);
-    L3.spin(fwd, (CT1.Axis2.value()/1.270), pct);
-    R1.spin(fwd, (CT1.Axis3.value()/1.270), pct);
-    R2.spin(fwd, (CT1.Axis3.value()/1.270), pct);
-    R3.spin(fwd, (CT1.Axis3.value()/1.270), pct);
+    if (!slowDrive) {
+      // Tank drive controls
+      L1.spin(fwd, (CT1.Axis2.value()*dSpeed/1.270), pct);
+      L2.spin(fwd, (CT1.Axis2.value()*dSpeed/1.270), pct);
+      L3.spin(fwd, (CT1.Axis2.value()*dSpeed/1.270), pct);
+      R1.spin(fwd, (CT1.Axis3.value()*dSpeed/1.270), pct);
+      R2.spin(fwd, (CT1.Axis3.value()*dSpeed/1.270), pct);
+      R3.spin(fwd, (CT1.Axis3.value()*dSpeed/1.270), pct);
+    } else {
+      //printf("%d, %d\n", CT1.Axis2.value(), CT1.Axis3.value()); 127 to -127
+      
+      if (accelTimer.time(vex::timeUnits::msec) >= accelStep) {
+        accelTimer.reset();
+
+        int leftTarget  = CT1.Axis2.value() * 100 / 127;
+        int rightTarget = CT1.Axis3.value() * 100 / 127;
+
+        // Time step in seconds
+        float dt = accelStep / 1000.0f;
+        
+        // Get acceleration based on current speed
+        float leftAccelMax  = accelSpeed(leftVeloc)  * dt;
+        float rightAccelMax = accelSpeed(rightVeloc) * dt;
+        // Ramp LEFT
+        int leftError = leftTarget - leftVeloc;
+        if (abs(leftError) > leftAccelMax) {
+          leftVeloc += sign(leftError) * leftAccelMax;
+        } else {
+          leftVeloc = leftTarget;
+        }
+
+        // Ramp RIGHT
+        int rightError = rightTarget - rightVeloc;
+        if (abs(rightError) > rightAccelMax) {
+          rightVeloc += sign(rightError) * rightAccelMax;
+        } else {
+          rightVeloc = rightTarget;
+        }
+
+        leftSide.spin(fwd, int(leftVeloc), pct);
+        rightSide.spin(fwd, int(rightVeloc), pct);
+      }
+
+      // leftVeloc += CT1.Axis2.value()/5;
+      // rightVeloc += CT1.Axis3.value()/5;
+      // leftVeloc /= 1.2;
+      // rightVeloc /= 1.2;
+      // L1.spin(fwd, leftVeloc, pct);
+      // L2.spin(fwd, leftVeloc, pct);
+      // L3.spin(fwd, leftVeloc, pct);
+      // R1.spin(fwd, rightVeloc, pct);
+      // R2.spin(fwd, rightVeloc, pct);
+      // R3.spin(fwd, rightVeloc, pct);
+      
+    }
+    
     
     // Intake and outake controls
     if (CT1.ButtonR2.pressing()) {
@@ -305,9 +372,21 @@ void usercontrol(void) {
 
     // Eliminates the judges if they give a bad score for our robot.
     if (CT1.ButtonLeft.pressing()) {
-      pnu2.set(1);
+      descoreArm.set(true);
+    } else if (CT1.ButtonRight.pressing()) {
+      descoreArm.set(false);
+    }
+
+    if (CT1.ButtonL2.pressing()) {
+      dSpeed = 0.3;
     } else {
-      pnu2.set(0);
+      dSpeed = 1;
+    }
+
+    if (CT1.ButtonY.pressing() && CT1.ButtonB.pressing()) {
+      slowDrive = true;
+    } else if (CT1.ButtonY.pressing() && CT1.ButtonX.pressing()) {
+      slowDrive = false;
     }
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo

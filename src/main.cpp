@@ -249,7 +249,7 @@ void autonomous(void) {
     moveStraight(27, 25);
     turnRobot(39, 25);
     stopIntake();
-    moveStraight(13, 20);
+    moveStraight(8, 20);
     reverseOutakeIntake(2000);
     moveStraight(-43, 50);
     turnRobot(171, 30);

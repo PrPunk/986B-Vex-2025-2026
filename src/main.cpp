@@ -249,12 +249,12 @@ void autonomous(void) {
     moveStraight(27, 25);
     turnRobot(35, 25);
     stopIntake();
-    moveStraight(5, 20);
+    moveStraight(10, 20);
     reverseOutakeIntake(2000);
     moveStraight(-45, 50);
     turnRobot(171, 30);
     intakePistons.set(1);
-    moveStraight(14, 20);
+    moveStraight(10, 20);
     spinIntakePush(2500);
     moveStraight(-15, 15);
     intakePistons.set(0);

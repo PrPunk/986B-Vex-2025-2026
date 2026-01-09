@@ -184,44 +184,44 @@ void autonomous(void) {
   // Insert autonomous user code here
   if (autonMode == 1) {
     // Left Side Auton
-    // spinIntake();
-    // moveStraight(33.25, 30);
-    // stopIntake();
-    // turnRobot(91, 30);
-    // outakePistons.set(1);
-    // moveStraight(-19, 20);
-    // spinIntakeOutake(1500);
-    // intakePistons.set(1);
-    // //moveStraight(27, 15);
-    // moveTime(1, 25);
-    // spinIntakePush(2500);
-    // moveStraight(-15, 15);
-    // intakePistons.set(0);
-    // moveTime(2, -15);
-    // spinIntakeOutake(1500);
-    // reverseOutake(300);
-    // spinIntakeOutake(10000);
-
     spinIntake();
-    moveStraight(8.5, 20);
-    turnRobot(-90, 30);
-    moveStraight(27, 25);
-    turnRobot(152, 25);
+    moveStraight(33.25, 30);
     stopIntake();
-    moveStraight(-13, 20);
-    spinIntakeOutake(2000);
-    moveStraight(48, 50);
-    turnRobot(43, 30);
+    turnRobot(91, 30);
+    outakePistons.set(1);
+    moveStraight(-19, 20);
+    spinIntakeOutake(1500);
     intakePistons.set(1);
-    moveStraight(12, 20);
+    //moveStraight(27, 15);
+    moveTime(1, 25);
     spinIntakePush(2500);
     moveStraight(-15, 15);
     intakePistons.set(0);
-    outakePistons.set(1);
     moveTime(2, -15);
     spinIntakeOutake(1500);
     reverseOutake(300);
     spinIntakeOutake(10000);
+
+    // spinIntake();
+    // moveStraight(8.5, 20);
+    // turnRobot(-90, 30);
+    // moveStraight(27, 25);
+    // turnRobot(152, 25);
+    // stopIntake();
+    // moveStraight(-13, 20);
+    // spinIntakeOutake(2000);
+    // moveStraight(48, 50);
+    // turnRobot(43, 30);
+    // intakePistons.set(1);
+    // moveStraight(12, 20);
+    // spinIntakePush(2500);
+    // moveStraight(-15, 15);
+    // intakePistons.set(0);
+    // outakePistons.set(1);
+    // moveTime(2, -15);
+    // spinIntakeOutake(1500);
+    // reverseOutake(300);
+    // spinIntakeOutake(10000);
 
   } else if (autonMode == 2) {
     // Right Side Auton

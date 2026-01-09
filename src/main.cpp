@@ -254,7 +254,7 @@ void autonomous(void) {
     intakeL.spin(fwd, -100, pct);
     moveStraight(-45, 50);
     stopIntake();
-    turnRobot(178, 25);
+    turnRobot(175, 25);
     intakePistons.set(1);
     moveStraight(10, 20);
     spinIntakePush(2500);

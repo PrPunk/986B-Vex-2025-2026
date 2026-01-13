@@ -24,11 +24,14 @@ float dSpeed = 1;
 bool slowDrive = false;
 double leftVeloc = 0;
 double rightVeloc = 0;
-int autonMode = 1;
+int autonMode = 0;
 bool intakeOn = false;
 float degPerInch = 47.012;
 float inchPerDeg = 0.1069014;
 
+int getSpeed(int percentComplete) {
+  return 100 - ((percentComplete^8)*(10^14));
+}
 
 int sign(int x) {
   return (x > 0) - (x < 0);
@@ -98,33 +101,63 @@ void spinIntakePush(int msecs) {
   driveTrain.stop(brake);
 }
 
+// void moveStraight(float distance, int speed) {
+//   int degreesToTurn = degPerInch * distance;
+//   // driveTrain.resetPosition();
+//   // wait(100, vex::timeUnits::msec);
+//   // driveTrain.spinToPosition(degreesToTurn, deg, speed, vex::velocityUnits::pct);
+//   // driveTrain.stop(brake);
+//   leftSide.resetPosition();
+//   rightSide.resetPosition();
+//   wait(100, vex::timeUnits::msec);
+//   if (distance > 0) {
+//     // Move Forward
+//     while (leftSide.position(deg) <= degreesToTurn && rightSide.position(deg) <= degreesToTurn) {
+//       int calcSpeed = int(float(getSpeed(int(abs(leftSide.position(deg)*100/degreesToTurn)))*speed)/100);
+//       leftSide.spin(fwd, calcSpeed, pct);
+//       rightSide.spin(fwd, calcSpeed, pct);
+//       wait(calcSpeed/10, msec);
+//     }
+//     leftSide.stop(brake);
+//     rightSide.stop(brake);
+//   } else if (distance < 0) {
+//     // Turn clockwise
+//     while (leftSide.position(deg) >= degreesToTurn && rightSide.position(deg) >= degreesToTurn) {
+//       int calcSpeed = int(float(getSpeed(int(abs(leftSide.position(deg)*100/degreesToTurn)))*speed)/100);
+//       leftSide.spin(fwd, -calcSpeed, pct);
+//       rightSide.spin(fwd, -calcSpeed, pct);
+//       wait(calcSpeed/10, msec);
+//     }
+//     leftSide.stop(brake);
+//     rightSide.stop(brake);
+//   }
+// }
+
 void moveStraight(float distance, int speed) {
-  int degreesToTurn = degPerInch * distance;
-  // driveTrain.resetPosition();
-  // wait(100, vex::timeUnits::msec);
-  // driveTrain.spinToPosition(degreesToTurn, deg, speed, vex::velocityUnits::pct);
-  // driveTrain.stop(brake);
+  if (distance == 0) return;
+
+  int direction = (distance > 0) ? 1 : -1;
+  int degreesToTurn = abs(degPerInch * distance);
+
   leftSide.resetPosition();
   rightSide.resetPosition();
-  wait(100, vex::timeUnits::msec);
-  if (distance > 0) {
-    // Move Forward
-    while (leftSide.position(deg) <= degreesToTurn && rightSide.position(deg) <= degreesToTurn) {
-      leftSide.spin(fwd, speed, pct);
-      rightSide.spin(fwd, speed, pct);
-    }
-    leftSide.stop(brake);
-    rightSide.stop(brake);
-  } else if (distance < 0) {
-    // Turn clockwise
-    while (leftSide.position(deg) >= degreesToTurn && rightSide.position(deg) >= degreesToTurn) {
-      leftSide.spin(fwd, -speed, pct);
-      rightSide.spin(fwd, -speed, pct);
-    }
-    leftSide.stop(brake);
-    rightSide.stop(brake);
+  wait(50, msec);
+
+  while ((abs(leftSide.position(deg)) + abs(rightSide.position(deg))) / 2 < degreesToTurn) {
+    int percent = (abs(leftSide.position(deg)) * 100) / degreesToTurn;
+    int calcSpeed = speed * (100 - percent) / 100;
+    calcSpeed = std::max(10, calcSpeed);
+
+    leftSide.spin(fwd, direction * calcSpeed, pct);
+    rightSide.spin(fwd, direction * calcSpeed, pct);
+
+    wait(10, msec);
   }
+
+  leftSide.stop(brake);
+  rightSide.stop(brake);
 }
+
 
 void moveTime(float seconds, int speed) {
   driveTrain.spin(fwd, speed, pct);
@@ -282,7 +315,7 @@ void autonomous(void) {
     moveStraight(-29, 15);
     spinIntakeOutake(10000);
   } else {
-    moveStraight(20, 30);
+    moveStraight(20, 100);
   }
 }
 
